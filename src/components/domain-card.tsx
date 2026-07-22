@@ -11,7 +11,7 @@ export function DomainCard({
   return (
     <Link
       href={`/projects/${domain.id}`}
-      className="group relative flex flex-col justify-between overflow-hidden rounded-xl border border-border/60 bg-card p-5 transition-colors hover:border-border focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
+      className="group relative flex flex-col justify-between overflow-hidden rounded-xl border border-border/60 bg-card p-5 transition-[transform,colors] duration-150 hover:-translate-y-1 hover:border-border active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
       style={{ borderTopColor: domain.color, borderTopWidth: 3 }}
     >
       <div>

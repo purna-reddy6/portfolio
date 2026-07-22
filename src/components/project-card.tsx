@@ -20,7 +20,7 @@ export function ProjectCard({ project }: { project: Project }) {
     <Dialog>
       <DialogTrigger className="w-full appearance-none border-0 bg-transparent p-0 text-left">
         <Card
-          className="h-full cursor-pointer border-l-2 py-4 transition-colors hover:bg-muted/40"
+          className="h-full cursor-pointer border-l-2 py-4 transition-[transform,colors] duration-150 hover:-translate-y-1 hover:bg-muted/40 active:scale-[0.98]"
           style={{ borderLeftColor: domain.color }}
         >
           <CardHeader className="px-4">

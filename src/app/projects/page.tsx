@@ -3,6 +3,7 @@ import { domains } from "@/data/domains";
 import { getProjectsByDomain, projects } from "@/data/projects";
 import { DomainCard } from "@/components/domain-card";
 import { ProjectSearch } from "@/components/project-search";
+import { MotionGrid, MotionItem } from "@/components/motion-primitives";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -22,15 +23,13 @@ export default function ProjectsPage() {
         <ProjectSearch />
       </div>
 
-      <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <MotionGrid className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {domains.map((domain) => (
-          <DomainCard
-            key={domain.id}
-            domain={domain}
-            count={getProjectsByDomain(domain.id).length}
-          />
+          <MotionItem key={domain.id}>
+            <DomainCard domain={domain} count={getProjectsByDomain(domain.id).length} />
+          </MotionItem>
         ))}
-      </div>
+      </MotionGrid>
     </div>
   );
 }

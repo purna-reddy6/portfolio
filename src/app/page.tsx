@@ -6,6 +6,7 @@ import { DomainCard } from "@/components/domain-card";
 import { ProjectCard } from "@/components/project-card";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { MotionGrid, MotionItem } from "@/components/motion-primitives";
 
 const quickLinks = [
   { href: "/projects", label: `View ${profile.stats[0].value}+ projects` },
@@ -62,19 +63,19 @@ export default function Home() {
         </div>
 
         {/* Stats bento */}
-        <div className="grid grid-cols-2 gap-3 self-start">
+        <MotionGrid className="grid grid-cols-2 gap-3 self-start">
           {profile.stats.map((stat) => (
-            <div
+            <MotionItem
               key={stat.label}
-              className="flex flex-col justify-center rounded-xl border border-border/60 bg-card p-5"
+              className="flex flex-col justify-center rounded-xl border border-border/60 bg-card p-5 transition-transform duration-150 hover:-translate-y-1"
             >
               <span className="font-mono text-3xl font-semibold text-foreground">
                 {stat.value}
               </span>
               <span className="mt-1 text-xs text-muted-foreground">{stat.label}</span>
-            </div>
+            </MotionItem>
           ))}
-        </div>
+        </MotionGrid>
       </section>
 
       {/* Domains */}
@@ -90,15 +91,13 @@ export default function Home() {
             All projects &rarr;
           </Link>
         </div>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <MotionGrid className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {domains.map((domain) => (
-            <DomainCard
-              key={domain.id}
-              domain={domain}
-              count={getProjectsByDomain(domain.id).length}
-            />
+            <MotionItem key={domain.id}>
+              <DomainCard domain={domain} count={getProjectsByDomain(domain.id).length} />
+            </MotionItem>
           ))}
-        </div>
+        </MotionGrid>
       </section>
 
       {/* Featured work */}
@@ -106,11 +105,13 @@ export default function Home() {
         <h2 className="mb-6 font-heading text-xl font-semibold text-foreground">
           Featured work
         </h2>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <MotionGrid className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {featuredProjects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
+            <MotionItem key={project.slug}>
+              <ProjectCard project={project} />
+            </MotionItem>
           ))}
-        </div>
+        </MotionGrid>
       </section>
     </div>
   );

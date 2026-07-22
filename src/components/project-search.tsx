@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { projects } from "@/data/projects";
 import { ProjectCard } from "@/components/project-card";
+import { MotionGrid, MotionItem } from "@/components/motion-primitives";
 
 export function ProjectSearch() {
   const [query, setQuery] = useState("");
@@ -34,11 +35,13 @@ export function ProjectSearch() {
             {results.length} result{results.length === 1 ? "" : "s"}
           </p>
           {results.length > 0 ? (
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <MotionGrid className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {results.map((p) => (
-                <ProjectCard key={p.slug} project={p} />
+                <MotionItem key={p.slug}>
+                  <ProjectCard project={p} />
+                </MotionItem>
               ))}
-            </div>
+            </MotionGrid>
           ) : (
             <p className="text-sm text-muted-foreground">No projects match &ldquo;{query}&rdquo;.</p>
           )}

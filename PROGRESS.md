@@ -45,10 +45,11 @@ Legend: [x] done · [~] in progress · [ ] not started
 - [x] Commit: a11y + refactor pass
 
 ## Phase 4 — Motion Pass
-- [ ] Framer Motion hover/tap states on cards
-- [ ] Page/section transitions
-- [ ] Staggered reveal on grids
-- [ ] Commit: motion pass
+- [x] `MotionGrid`/`MotionItem` primitives (Motion/Framer Motion, `whileInView` + stagger) applied to every card grid: home stats/domains/featured, `/projects` domain grid, `/projects/[domain]` subcategory grids, live search results
+- [x] CSS-only hover lift (`-translate-y-1`) + active tap scale (`0.98`) on domain cards and project cards — kept as plain CSS transitions (not JS) since it's cheaper and doesn't need the animation library
+- [x] Verified in browser: stagger-on-scroll fires correctly, hover lift confirmed
+- [x] `tsc --noEmit`, `next build`, `npm run lint` all clean
+- [x] Commit: motion pass
 
 ## Phase 5 — QA
 - [ ] `next build` clean, lint clean

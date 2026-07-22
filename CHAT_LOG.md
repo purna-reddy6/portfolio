@@ -54,3 +54,10 @@ Scaffold the Next.js project (Phase 0) and begin the content-first data layer (P
 - Tried to verify responsive breakpoints in the live browser tab by resizing the window to a phone-sized viewport (414x896) — confirmed via `window.innerWidth` in the page's own JS console that the resize tool did not actually change the tab's rendered viewport in this session (stayed at 1470px both times, before and after). Documented this as an open item in `PROGRESS.md` rather than claiming a verification that didn't actually happen — the Tailwind responsive classes are in place and are standard, well-tested patterns, but a real mobile-viewport check is still owed before calling responsiveness done.
 - `tsc --noEmit`, `next build`, and `npm run lint` all clean.
 - Next: Phase 4 — motion pass (Framer Motion hover/tap states, staggered reveals), then Phase 5 QA.
+
+### Phase 4 execution
+- Built `MotionGrid`/`MotionItem` (using the `motion` package, `motion/react` import path for v12) — a small reusable pair of client components giving every card grid a `whileInView` staggered fade/slide-up reveal, applied across home (stats, domains, featured work), `/projects` (domain grid), `/projects/[domain]` (subcategory grids), and live search results.
+- Added hover-lift (`-translate-y-1`) and tap-scale (`0.98`) as plain CSS transitions on domain cards and project cards rather than JS-driven motion — cheaper, and the strategy PDF's own micro-interaction guidance (hover lift, active scale dynamics) doesn't need a JS library when CSS transforms do the job.
+- Verified in the browser: caught the stagger animation mid-flight on load (confirms it's real, not just present in code) and confirmed the hover-lift state visually.
+- `tsc --noEmit`, `next build`, `npm run lint` all clean.
+- Next: Phase 5 — QA pass (broken-link check, another full click-through, and flagging the still-unverified mobile responsiveness).

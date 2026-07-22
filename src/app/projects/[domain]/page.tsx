@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { domains, type DomainId } from "@/data/domains";
 import { getProjectsByDomain } from "@/data/projects";
 import { ProjectCard } from "@/components/project-card";
+import { MotionGrid, MotionItem } from "@/components/motion-primitives";
 
 export function generateStaticParams() {
   return domains.map((d) => ({ domain: d.id }));
@@ -67,11 +68,13 @@ export default async function DomainPage({
                   {items.length} project{items.length === 1 ? "" : "s"}
                 </span>
               </h2>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <MotionGrid className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {items.map((project) => (
-                  <ProjectCard key={project.slug} project={project} />
+                  <MotionItem key={project.slug}>
+                    <ProjectCard project={project} />
+                  </MotionItem>
                 ))}
-              </div>
+              </MotionGrid>
             </div>
           );
         })}
