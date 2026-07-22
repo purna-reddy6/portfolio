@@ -6,9 +6,10 @@ Legend: [x] done · [~] in progress · [ ] not started
 - [x] Reviewed strategy PDF, resume, GitHub profile, reference site
 - [x] Wrote `BUILD_PLAN.md` (unique plan for this build)
 - [x] `git init`, organized `docs/`
-- [ ] Scaffold Next.js + TypeScript + Tailwind + ESLint app
-- [ ] Install shadcn/ui, Framer Motion
-- [ ] Initial scaffold commit
+- [x] Scaffold Next.js 16 (App Router) + TypeScript + Tailwind v4 + ESLint app
+- [x] Install shadcn/ui (button, card, badge, dialog, separator, navigation-menu) + Motion (Framer Motion successor)
+- [x] `next build` verified clean on bare scaffold
+- [x] Initial scaffold commit
 
 ## Phase 1 — Content Compiling
 - [ ] `data/profile.ts` — bio, tagline, education, contact links
