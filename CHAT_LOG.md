@@ -61,3 +61,13 @@ Scaffold the Next.js project (Phase 0) and begin the content-first data layer (P
 - Verified in the browser: caught the stagger animation mid-flight on load (confirms it's real, not just present in code) and confirmed the hover-lift state visually.
 - `tsc --noEmit`, `next build`, `npm run lint` all clean.
 - Next: Phase 5 — QA pass (broken-link check, another full click-through, and flagging the still-unverified mobile responsiveness).
+
+### Phase 5 execution
+- Curl-checked every internal route (all 7 domain pages, `/`, `/projects`, `/about`, `/contact`, `/resume.pdf`) — all 200.
+- Wrote a quick Python link-checker (urllib, threaded) against `src/data/projects.ts`: verified all 43 constructed `github.com/purna-reddy6/<repo>` URLs resolve (43/43 200), and all 14 explicit live-demo/research-paper URLs extracted from the resume PDF resolve (14/14 200). This matters because those live-demo URLs weren't guessed — they came from the PDF's actual embedded hyperlinks — and now they're independently confirmed live, not just present in the PDF.
+- Did another full manual click-through in Chrome: home → Projects nav → typed "graph" into the live search (correctly returned 4 matches: NexusGuard, ChainTrace, and others) → domain drill-down → about → contact.
+- Checked the browser console after a fresh page load: no errors or warnings, only expected dev-mode noise (HMR connected, React DevTools suggestion).
+- Final `next build`, `npm run lint`, `tsc --noEmit` all clean.
+- One honest gap: mobile-viewport rendering was never independently confirmed in this session — the browser automation's window-resize tool didn't actually change the tab's `window.innerWidth` (checked via JS, stayed at 1470px). The Tailwind responsive classes are in place and are standard, well-understood patterns, but this is flagged rather than claimed as verified.
+
+**v1 is feature-complete and committed as of this point** — all 5 planned phases done. Local commits only; nothing has been pushed to a remote or deployed anywhere, per the working agreement in `BUILD_PLAN.md`. Waiting on the user's design direction for the next round, per their original request.

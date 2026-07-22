@@ -24,3 +24,6 @@ Things deliberately not in v1, with why, so nothing gets lost.
 - Preferred visual identity (color palette, typeface, tone — playful like the reference site, or more formal/technical)?
 - Should individual projects get real live demos, or is "GitHub + good README" enough for most (per the reference PLAN.md's tiering)?
 - Any projects from the 43 that should be hidden/archived rather than shown?
+
+## Known gap to close before calling v1 fully verified
+- **Mobile-viewport check** — the in-session Chrome automation's window-resize tool didn't actually change the tab's real viewport (confirmed via `window.innerWidth` staying at 1470px after resizing to 414px), so the responsive Tailwind breakpoints were never visually confirmed on an actual small screen. They're standard, well-tested patterns (`grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`, `hidden sm:flex` nav swap), but do a real check — phone, or browser devtools device toolbar — before treating mobile as done.

@@ -52,10 +52,16 @@ Legend: [x] done · [~] in progress · [ ] not started
 - [x] Commit: motion pass
 
 ## Phase 5 — QA
-- [ ] `next build` clean, lint clean
-- [ ] Manual click-through in browser (desktop + mobile viewport)
-- [ ] Fix any broken links/assets found
-- [ ] Commit: QA pass / v1 complete
+- [x] `next build` clean, `npm run lint` clean, `tsc --noEmit` clean (re-verified)
+- [x] Every internal route curl-checked and returns 200 (`/`, `/projects`, all 7 `/projects/[domain]`, `/about`, `/contact`, `/resume.pdf`)
+- [x] Every external link in the data layer verified: all 43 constructed GitHub repo URLs return 200, all 14 explicit live-demo/paper links from the resume PDF return 200 — nothing fabricated, nothing broken
+- [x] Manual click-through in browser (desktop): nav, project detail dialog (tested full NexusGuard case study), domain drill-down, live client-side search (tested "graph" → 4 correct results), about, contact
+- [x] Browser console checked after fresh page load — no errors or warnings, only expected dev-mode HMR/DevTools messages
+- [~] Mobile viewport — **not independently verified** this session (see Phase 3 note: the browser automation's resize tool didn't actually change the tab's viewport). Tailwind responsive classes are in place and are standard patterns, but a real device/DevTools check is still recommended before treating this as fully QA'd.
+- [x] Commit: QA pass / v1 complete
+
+## v1 status: feature-complete, unverified on mobile viewport
+Everything in Phases 0–5 above is implemented, committed, and passing every automated check available in this session. The one open item is a real mobile-viewport check — flagging it rather than claiming something that wasn't actually confirmed.
 
 ## Not started (needs explicit go-ahead first)
 - [ ] Deployment (GitHub Pages / Vercel)
