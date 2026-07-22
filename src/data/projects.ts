@@ -1,0 +1,532 @@
+import type { DomainId } from "./domains";
+
+export interface Project {
+  slug: string;
+  name: string;
+  domain: DomainId;
+  subcategory: string;
+  tagline: string;
+  problem?: string;
+  approach?: string;
+  outcome?: string;
+  tech: string[];
+  metric?: string;
+  github: string;
+  liveDemo?: string;
+  featured: boolean;
+}
+
+const gh = (repo: string) => `https://github.com/purna-reddy6/${repo}`;
+
+export const projects: Project[] = [
+  // ---------- Flagship (full case study) ----------
+  {
+    slug: "nexusguard",
+    name: "NexusGuard",
+    domain: "ai-security",
+    subcategory: "Threat & Fraud Detection",
+    tagline: "Graph-native identity risk-scoring engine.",
+    problem:
+      "Login risk models that only look at a user's own history miss attacks that look normal for that user but abnormal for their peer group.",
+    approach:
+      "Built with GraphSAGE + Louvain community detection over PyTorch Geometric, judging each login against its functional peer group rather than its own history. Fused five signals — peer alignment, geo-velocity, temporal, device, and entity — into a 0-100 risk score driving adaptive auth. Validated on the CERT r6.2 benchmark with k-anonymity and differential privacy by design.",
+    outcome:
+      "0.993 AUC-ROC, 1.3% false-positive rate (4x lower than ML-only baselines), at under 15ms latency.",
+    tech: ["GraphSAGE", "Louvain", "PyTorch Geometric", "FastAPI", "React"],
+    metric: "0.993 AUC-ROC · <15ms latency",
+    github: gh("NexusGuard"),
+    liveDemo: "https://nexusguard-psi.vercel.app/",
+    featured: true,
+  },
+  {
+    slug: "abstractmind",
+    name: "AbstractMind",
+    domain: "ai-research",
+    subcategory: "Program Synthesis & Abstraction",
+    tagline: "Self-improving program-synthesis engine for ARC-AGI.",
+    problem:
+      "Program synthesis systems that solve ARC-AGI tasks from scratch each time never build reusable knowledge across tasks.",
+    approach:
+      "DreamCoder-style wake-sleep cycles combining enumerative search and MDL compression, written in NumPy, that invents and reuses its own abstractions across tasks.",
+    outcome:
+      "Spontaneously discovered a cross-module abstraction reused 28 times, beating a matched baseline 11.8% vs 10.5% across 400 tasks. First-authored paper (\"PrimaLearn Bootstrapping\") ready for publication.",
+    tech: ["Program Synthesis", "DreamCoder", "ARC-AGI", "NumPy"],
+    metric: "11.8% vs 10.5% baseline · 28x abstraction reuse",
+    github: gh("AbstractMind"),
+    featured: true,
+  },
+  {
+    slug: "vigilcore",
+    name: "VigilCore",
+    domain: "ai-security",
+    subcategory: "Security Systems & Primitives",
+    tagline: "Self-monitoring credit-risk MLOps pipeline.",
+    problem:
+      "Credit-risk models silently drift and loan-rejection explanations can hallucinate — both are hard to catch without an automated gate.",
+    approach:
+      "Databricks Lakehouse Bronze/Silver/Gold medallion architecture with an XGBoost + SHAP champion model registered in MLflow, PSI-based drift detection, and automated champion/challenger retraining behind triple-gate promotion.",
+    outcome:
+      "An LLM-evaluation stage catches hallucinations in loan-rejection explanations via a 4-signal composite check before they ever reach a customer.",
+    tech: ["Databricks", "XGBoost", "SHAP", "MLflow", "LLM Eval"],
+    metric: "Triple-gate promotion · 4-signal hallucination check",
+    github: gh("VigilCore"),
+    featured: true,
+  },
+  {
+    slug: "sentinelos",
+    name: "SentinelOS",
+    domain: "ai-agents",
+    subcategory: "Agent Platforms",
+    tagline: "JARVIS-like AI operating-system layer for macOS.",
+    problem:
+      "Voice assistants that only answer questions are far less useful than ones that can actually operate the machine safely.",
+    approach:
+      "An LLM-backed layer (GitHub Copilot, 64K-128K context) that sees the system and acts on it — file management, shell execution, and app control via AppleScript and web access — through text and real-time voice. Fully local voice pipeline (Whisper STT + native TTS, no API).",
+    outcome:
+      "A Guardian security supervisor risk-reviews every action before execution, hard-blocking destructive operations.",
+    tech: ["AI Agents", "LLMs", "Whisper STT", "AppleScript", "Voice"],
+    metric: "Fully local voice pipeline · zero-API STT/TTS",
+    github: gh("SentinelOS"),
+    featured: true,
+  },
+  {
+    slug: "agentforge",
+    name: "AgentForge",
+    domain: "ai-agents",
+    subcategory: "Agent Platforms",
+    tagline: "Enterprise control plane for autonomous AI agents (SAO).",
+    problem:
+      "Autonomous agents with write access to real systems need governance that a chat interface alone can't provide.",
+    approach:
+      "Built SAO, a control plane with identity and intent governance, least-privilege scopes, behavioral-security boundaries, kill switches, and a full audit trail (Next.js, React 19). Includes an orchestration canvas for visual multi-agent workflows with human approval gates.",
+    outcome:
+      "Live mission-control monitoring surfaces severity alerts and deviation history in real time.",
+    tech: ["Agentic AI", "Next.js", "React 19", "Control Plane"],
+    metric: "Human approval gates · live mission control",
+    github: gh("AgentForge"),
+    liveDemo: "https://agentforge-iota-three.vercel.app/",
+    featured: true,
+  },
+
+  // ---------- AI Security & Cybersecurity ----------
+  {
+    slug: "chaintrace",
+    name: "ChainTrace",
+    domain: "ai-security",
+    subcategory: "Threat & Fraud Detection",
+    tagline: "Money-laundering detection via peeling-chain tracing and temporal graph analysis of blockchain transactions.",
+    tech: ["Graph Analysis", "Blockchain", "Python"],
+    github: gh("ChainTrace"),
+    featured: false,
+  },
+  {
+    slug: "regressguard",
+    name: "RegressGuard",
+    domain: "ai-security",
+    subcategory: "Threat & Fraud Detection",
+    tagline: "AI model regression detection system acting as an automated gatekeeper for LLM prompts and model versions.",
+    tech: ["Python", "LLM Eval"],
+    github: gh("RegressGuard"),
+    featured: false,
+  },
+  {
+    slug: "fakenews-detection-nlp",
+    name: "fakenews-detection-nlp",
+    domain: "ai-security",
+    subcategory: "Threat & Fraud Detection",
+    tagline: "NLP-based fake news detection built on the WELFake dataset with a Streamlit interface.",
+    tech: ["Python", "NLP", "Streamlit"],
+    github: gh("fakenews-detection-nlp"),
+    featured: false,
+  },
+  {
+    slug: "cipherlab",
+    name: "CipherLab",
+    domain: "ai-security",
+    subcategory: "Security Systems & Primitives",
+    tagline: "Demonstrations of core cryptography primitives — confidentiality and integrity.",
+    tech: ["Python", "Cryptography"],
+    github: gh("CipherLab"),
+    featured: false,
+  },
+  {
+    slug: "parental-ai",
+    name: "parental-AI",
+    domain: "ai-security",
+    subcategory: "Security Systems & Primitives",
+    tagline: "AI-driven parental control system evaluating digital content using NLP and computer vision.",
+    tech: ["Python", "NLP", "Computer Vision"],
+    github: gh("parental-AI"),
+    featured: false,
+  },
+  {
+    slug: "dns-detective",
+    name: "DNS-detective",
+    domain: "ai-security",
+    subcategory: "Security Systems & Primitives",
+    tagline: "Production-grade encrypted distributed DNS infrastructure: recursive resolver, authoritative server, wire-format parser, 2Q cache, DNSSEC.",
+    tech: ["Rust", "DNS", "DNSSEC"],
+    github: gh("DNS-detective"),
+    featured: false,
+  },
+
+  // ---------- AI Research / AGI ----------
+  {
+    slug: "primalearn",
+    name: "PrimaLearn",
+    domain: "ai-research",
+    subcategory: "Program Synthesis & Abstraction",
+    tagline: "Spelke-initialized library learning for cross-domain abstraction discovery.",
+    tech: ["Python", "Program Synthesis"],
+    metric: "First-authored paper ready for publication",
+    github: gh("PrimaLearn"),
+    liveDemo: "https://github.com/purna-reddy6/PrimaLearn/blob/main/paper/paper.pdf",
+    featured: false,
+  },
+  {
+    slug: "cortexrag",
+    name: "CortexRAG",
+    domain: "ai-research",
+    subcategory: "Retrieval & Reasoning",
+    tagline: "Offline, citation-backed neuroscience RAG running fully on-device with zero API cost.",
+    tech: ["RAG", "Phi-3", "llama.cpp", "FAISS", "LangChain"],
+    github: gh("CortexRAG"),
+    featured: false,
+  },
+  {
+    slug: "medisage",
+    name: "MediSage",
+    domain: "ai-research",
+    subcategory: "Retrieval & Reasoning",
+    tagline: "Offline RAG chatbot over medical PDFs using local LLMs and FAISS.",
+    tech: ["LangChain", "HuggingFace", "FAISS", "Streamlit"],
+    github: gh("MediSage"),
+    featured: false,
+  },
+  {
+    slug: "privacy-preserving-rag-assistant",
+    name: "privacy-preserving-rag-assistant",
+    domain: "ai-research",
+    subcategory: "Retrieval & Reasoning",
+    tagline: "Offline RAG system for research paper analysis using FAISS and local LLMs via Ollama.",
+    tech: ["FAISS", "Ollama", "Python"],
+    github: gh("privacy-preserving-rag-assistant"),
+    featured: false,
+  },
+
+  // ---------- Computer Vision / 3D / Edge AI ----------
+  {
+    slug: "urbantwin",
+    name: "UrbanTwin",
+    domain: "computer-vision",
+    subcategory: "3D Reconstruction & Digital Twins",
+    tagline: "Drone video into a 3D digital twin that auto-detects defects, on the edge.",
+    tech: ["YOLOv8", "ONNX", "COLMAP", "OpenCV", "Streamlit", "AMD Ryzen AI NPU"],
+    metric: "Edge-deployed NPU inference",
+    github: gh("UrbanTwin"),
+    liveDemo: "https://urbantwin.vercel.app/",
+    featured: false,
+  },
+  {
+    slug: "scantobuild",
+    name: "ScanToBuild",
+    domain: "computer-vision",
+    subcategory: "3D Reconstruction & Digital Twins",
+    tagline: "BIM generation from textureless construction-site imagery using LoFTR and RANSAC.",
+    tech: ["LoFTR", "RANSAC", "Python"],
+    github: gh("ScanToBuild"),
+    featured: false,
+  },
+  {
+    slug: "scantobuild-pro",
+    name: "ScanToBuild-Pro",
+    domain: "computer-vision",
+    subcategory: "3D Reconstruction & Digital Twins",
+    tagline: "End-to-end unstructured site-video-to-BIM reconstruction pipeline.",
+    tech: ["Python", "Photogrammetry"],
+    github: gh("ScanToBuild-Pro"),
+    featured: false,
+  },
+  {
+    slug: "motionprobe",
+    name: "MotionProbe",
+    domain: "computer-vision",
+    subcategory: "Motion & Generative Video",
+    tagline: "Physics-grounded evaluation harness for generative video using optical flow.",
+    tech: ["Optical Flow", "PyTorch"],
+    github: gh("MotionProbe"),
+    featured: false,
+  },
+  {
+    slug: "motionprobe-rl",
+    name: "MotionProbe-RL",
+    domain: "computer-vision",
+    subcategory: "Motion & Generative Video",
+    tagline: "DRL agents in animation with VLM-based perceptual rewards.",
+    tech: ["DRL", "VLM", "Jupyter"],
+    github: gh("MotionProbe-RL"),
+    featured: false,
+  },
+  {
+    slug: "temporalforge",
+    name: "TemporalForge",
+    domain: "computer-vision",
+    subcategory: "Motion & Generative Video",
+    tagline: "4D monocular video reconstruction with EMA temporal consistency — diffusion + RAFT optical flow.",
+    tech: ["Diffusion", "Zero123++/SV3D", "RAFT Optical Flow"],
+    github: gh("TemporalForge"),
+    featured: false,
+  },
+  {
+    slug: "osteoscan",
+    name: "OsteoScan",
+    domain: "computer-vision",
+    subcategory: "Applied Vision",
+    tagline: "AI-based bone fracture detection from medical imaging.",
+    tech: ["Python", "Computer Vision"],
+    github: gh("OsteoScan"),
+    featured: false,
+  },
+  {
+    slug: "hand-gestures-navigation",
+    name: "hand-gestures-navigation",
+    domain: "computer-vision",
+    subcategory: "Applied Vision",
+    tagline: "Touch-free cursor control via hand-gesture recognition for pointer and click operations.",
+    tech: ["MediaPipe", "OpenCV", "PyAutoGUI"],
+    github: gh("hand-gestures-navigation"),
+    featured: false,
+  },
+  {
+    slug: "heritageglobe",
+    name: "HeritageGlobe",
+    domain: "computer-vision",
+    subcategory: "Applied Vision",
+    tagline: "Interactive 3D viewer of 25+ procedurally-built world monuments in 360°.",
+    tech: ["Three.js", "WebGL", "JavaScript"],
+    metric: "25+ monuments in 360°",
+    github: gh("HeritageGlobe"),
+    liveDemo: "https://purna-reddy6.github.io/HeritageGlobe/",
+    featured: false,
+  },
+
+  // ---------- Quantum Computing ----------
+  {
+    slug: "quantumlens",
+    name: "QuantumLens",
+    domain: "quantum",
+    subcategory: "Quantum Research",
+    tagline: "Exploratory analysis of 10,000+ arXiv quant-ph papers with Qiskit.",
+    tech: ["Qiskit", "Jupyter"],
+    metric: "10K+ papers analyzed",
+    github: gh("QuantumLens"),
+    featured: false,
+  },
+  {
+    slug: "variaq",
+    name: "VariaQ",
+    domain: "quantum",
+    subcategory: "Quantum Research",
+    tagline: "Variational quantum circuit research with a full paper and figures.",
+    tech: ["Qiskit", "PennyLane", "VQC"],
+    github: gh("VariaQ"),
+    featured: false,
+  },
+  {
+    slug: "qubitsim",
+    name: "QubitSim",
+    domain: "quantum",
+    subcategory: "Quantum Research",
+    tagline: "Quantum state-vector simulation engine; IEEE-format paper where VQC and quantum-kernel models beat classical baselines.",
+    tech: ["Qiskit", "PennyLane", "Quantum Kernels"],
+    github: gh("QubitSim"),
+    featured: false,
+  },
+
+  // ---------- Data Science & Analytics ----------
+  {
+    slug: "launchds",
+    name: "LaunchDS",
+    domain: "data-science",
+    subcategory: "Applied Analytics",
+    tagline: "End-to-end data science capstone (SpaceX-style) with ML and Jupyter.",
+    tech: ["Python", "ML", "Jupyter"],
+    github: gh("LaunchDS"),
+    featured: false,
+  },
+  {
+    slug: "trendscope",
+    name: "TrendScope",
+    domain: "data-science",
+    subcategory: "Applied Analytics",
+    tagline: "Exploratory analysis of US Google Trends search behavior.",
+    tech: ["Python", "Jupyter"],
+    github: gh("TrendScope"),
+    featured: false,
+  },
+  {
+    slug: "stocksentry",
+    name: "StockSentry",
+    domain: "data-science",
+    subcategory: "Applied Analytics",
+    tagline: "Decision-Tree ML predicting inventory-expiry risk with a live discount/urgency dashboard.",
+    tech: ["scikit-learn", "FastAPI", "PostgreSQL", "React"],
+    metric: "~95% accuracy",
+    github: gh("StockSentry"),
+    liveDemo: "https://stocksentry-tau.vercel.app/",
+    featured: false,
+  },
+  {
+    slug: "cropmind",
+    name: "CropMind",
+    domain: "data-science",
+    subcategory: "Applied Analytics",
+    tagline: "Agricultural AI and data analysis for crop insights.",
+    tech: ["Jupyter", "Python"],
+    github: gh("CropMind"),
+    featured: false,
+  },
+
+  // ---------- Full Stack Web ----------
+  {
+    slug: "internscout",
+    name: "InternScout",
+    domain: "full-stack",
+    subcategory: "AI-Powered Platforms",
+    tagline: "Internship finder with scam detection, credibility scoring and smart ranking.",
+    tech: ["React", "TypeScript", "FastAPI", "Tailwind", "SQLite"],
+    github: gh("InternScout"),
+    liveDemo: "https://internscout-gamma.vercel.app/",
+    featured: false,
+  },
+  {
+    slug: "codementorai",
+    name: "CodeMentorAI",
+    domain: "full-stack",
+    subcategory: "AI-Powered Platforms",
+    tagline: "AI hints/solutions for students and AI grading for teachers, multi-language.",
+    tech: ["React", "Vite", "OpenAI API"],
+    github: gh("CodeMentorAI"),
+    liveDemo: "https://codementorai-eta.vercel.app/",
+    featured: false,
+  },
+  {
+    slug: "pathfinderai",
+    name: "PathFinderAI",
+    domain: "full-stack",
+    subcategory: "AI-Powered Platforms",
+    tagline: "Turns any job title into a roadmap of skills, courses, projects and salary.",
+    tech: ["Next.js 15", "React", "TypeScript", "OpenAI API"],
+    github: gh("PathFinderAI"),
+    liveDemo: "https://pathfinderai-blue.vercel.app/",
+    featured: false,
+  },
+  {
+    slug: "campushub",
+    name: "CampusHub",
+    domain: "full-stack",
+    subcategory: "AI-Powered Platforms",
+    tagline: "Graph-based platform rendering each student's journey as a live roadmap.",
+    tech: ["Next.js 15", "React 19", "Neo4j", "FastAPI", "Turborepo"],
+    github: gh("CampusHub"),
+    liveDemo: "https://campushub-rouge.vercel.app/",
+    featured: false,
+  },
+  {
+    slug: "estatelens",
+    name: "EstateLens",
+    domain: "full-stack",
+    subcategory: "Systems & Tools",
+    tagline: "Real-estate SPA with a map, per-listing trust report and liveability radar.",
+    tech: ["Leaflet.js", "Chart.js", "Tailwind", "JavaScript"],
+    github: gh("EstateLens"),
+    liveDemo: "https://purna-reddy6.github.io/EstateLens/",
+    featured: false,
+  },
+  {
+    slug: "cloudshift",
+    name: "CloudShift",
+    domain: "full-stack",
+    subcategory: "Systems & Tools",
+    tagline: "Hybrid-cloud migration with rollback, IoT carbon tracking and Zero Trust.",
+    tech: ["Azure Arc", "React", "Redux", "Node/Express", "SAP BTP"],
+    github: gh("CloudShift"),
+    liveDemo: "https://cloudshift-gray.vercel.app/",
+    featured: false,
+  },
+  {
+    slug: "ticketflow",
+    name: "TicketFlow",
+    domain: "full-stack",
+    subcategory: "Systems & Tools",
+    tagline: "Jira-Lite support system with ML triage and TF-IDF duplicate detection.",
+    tech: ["Django", "DRF", "PostgreSQL", "scikit-learn"],
+    github: gh("TicketFlow"),
+    liveDemo: "https://ticketflow-psi-two.vercel.app/",
+    featured: false,
+  },
+  {
+    slug: "ranforge",
+    name: "RANForge",
+    domain: "full-stack",
+    subcategory: "Systems & Tools",
+    tagline: "Deterministic 5G fronthaul optimizer with a 6-layer O-RAN digital twin across 4 dashboards.",
+    tech: ["Python", "FastAPI", "D3.js", "Docker"],
+    metric: "Up to 88.5% link-capacity reduction",
+    github: gh("RANForge"),
+    liveDemo: "https://ranforge.vercel.app/",
+    featured: false,
+  },
+  {
+    slug: "sql-query-generator",
+    name: "SQL-query-generator",
+    domain: "full-stack",
+    subcategory: "Systems & Tools",
+    tagline: "Lightweight HTML/CSS/JS app that generates optimized SQL queries from plain English using Gemini.",
+    tech: ["HTML", "CSS", "JavaScript", "Gemini API"],
+    github: gh("SQL-query-generator"),
+    featured: false,
+  },
+  {
+    slug: "storedge",
+    name: "StorEdge",
+    domain: "full-stack",
+    subcategory: "Systems & Tools",
+    tagline: "Storage/edge systems project written in Go.",
+    tech: ["Go"],
+    github: gh("StorEdge"),
+    featured: false,
+  },
+
+  // ---------- AI Agents & Voice ----------
+  {
+    slug: "omnimind",
+    name: "OmniMind",
+    domain: "ai-agents",
+    subcategory: "Agent Platforms",
+    tagline: "Modular AI operating system combining conversational memory, RAG, tool execution, MCP integrations, and multi-agent orchestration.",
+    tech: ["Python", "RAG", "MCP", "Multi-Agent Systems"],
+    github: gh("OmniMind"),
+    featured: false,
+  },
+  {
+    slug: "offline-text-to-sql",
+    name: "offline-text-to-sql",
+    domain: "ai-agents",
+    subcategory: "Agent Platforms",
+    tagline: "Private natural-language-to-SQL converter with a self-repairing compiler-feedback pipeline.",
+    tech: ["Python", "NL-to-SQL"],
+    github: gh("offline-text-to-sql"),
+    featured: false,
+  },
+];
+
+export const featuredProjects = projects.filter((p) => p.featured);
+
+export function getProjectsByDomain(domain: DomainId): Project[] {
+  return projects.filter((p) => p.domain === domain);
+}
+
+export function getProject(slug: string): Project | undefined {
+  return projects.find((p) => p.slug === slug);
+}

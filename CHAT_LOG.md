@@ -24,3 +24,17 @@ Running record of the conversation and actions during this portfolio build. Appe
 
 ### Next actions
 Scaffold the Next.js project (Phase 0) and begin the content-first data layer (Phase 1).
+
+### Phase 0 execution
+- Moved strategy PDF into `docs/`, copied resume PDF into `docs/` too, `git init`.
+- Committed planning baseline (BUILD_PLAN.md, PROGRESS.md, FUTURE_PLANS.md, CHAT_LOG.md).
+- Scaffolded Next.js 16 (App Router) + TypeScript + Tailwind v4 + ESLint into the repo root (scaffolded in a scratch dir first since `create-next-app` refuses non-empty directories, then merged in).
+- Installed shadcn/ui (button, card, badge, dialog, separator, navigation-menu) and `motion` (Framer Motion's current package).
+- Verified `next build` on the bare scaffold. Committed.
+
+### Phase 1 execution
+- Extracted the resume's actual embedded hyperlink URLs with PyMuPDF (`fitz`) instead of guessing — got real GitHub repo links and real live-demo URLs (mostly `*.vercel.app` and two `purna-reddy6.github.io` sites) tied to each labeled link in the PDF.
+- Built the content-first data layer in `src/data/`: `profile.ts`, `skills.ts`, `experience.ts` (experience + achievements + publications), `domains.ts` (7 domains with distinct accent colors), `projects.ts` (all 43 GitHub repos assigned to a domain + subcategory, 5 flagship projects given full Problem/Approach/Outcome case studies from the resume's Key Projects section, remaining 38 given concise taglines sourced from the resume's "Other Live Projects" list where available and from the live GitHub repo descriptions otherwise).
+- Copied the resume PDF into `public/resume.pdf` for the site's own download link.
+- `tsc --noEmit` clean.
+- Next: layout architecture (Phase 2) — nav/footer, hero, projects domain overview + drill-down, about, contact.

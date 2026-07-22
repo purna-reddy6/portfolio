@@ -12,13 +12,15 @@ Legend: [x] done · [~] in progress · [ ] not started
 - [x] Initial scaffold commit
 
 ## Phase 1 — Content Compiling
-- [ ] `data/profile.ts` — bio, tagline, education, contact links
-- [ ] `data/skills.ts` — grouped skill matrix from resume
-- [ ] `data/experience.ts` — work experience + timeline
-- [ ] `data/achievements.ts` + `data/publications.ts`
-- [ ] `data/projects.ts` — all 43 GitHub repos, tagged by domain, 5 flagship case studies with Problem/Approach/Outcome + metrics
-- [ ] `data/domains.ts` — 7 domain definitions (name, color, description, subcategories)
-- [ ] Commit: content layer
+- [x] `data/profile.ts` — bio, tagline, education, contact links, stats
+- [x] `data/skills.ts` — 6 grouped skill categories from resume (49 skills)
+- [x] `data/experience.ts` — 2 work experience entries + 4 achievements
+- [x] `data/experience.ts` (publications section) — 5 research/publication entries with real links extracted from resume PDF hyperlinks (PyMuPDF)
+- [x] `data/projects.ts` — all 43 GitHub repos, tagged by domain/subcategory; 5 flagship projects with full Problem/Approach/Outcome case studies + metrics; real GitHub + live-demo URLs extracted directly from resume PDF hyperlinks (not guessed)
+- [x] `data/domains.ts` — 7 domain definitions (name, color, description)
+- [x] `public/resume.pdf` — resume copied in for the site's download link
+- [x] `tsc --noEmit` clean
+- [x] Commit: content layer
 
 ## Phase 2 — Layout Architecture
 - [ ] Global layout: nav + footer
