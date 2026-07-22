@@ -1,65 +1,117 @@
-import Image from "next/image";
+import Link from "next/link";
+import { profile } from "@/data/profile";
+import { domains } from "@/data/domains";
+import { featuredProjects, getProjectsByDomain } from "@/data/projects";
+import { DomainCard } from "@/components/domain-card";
+import { ProjectCard } from "@/components/project-card";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
+const quickLinks = [
+  { href: "/projects", label: `View ${profile.stats[0].value}+ projects` },
+  { href: profile.links.github, label: "GitHub", external: true },
+  { href: "/about", label: "Experience & achievements" },
+  { href: profile.links.resume, label: "Resume", external: true },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="mx-auto max-w-6xl px-6">
+      {/* Hero */}
+      <section className="grid grid-cols-1 gap-10 py-16 sm:py-24 lg:grid-cols-[1.4fr_1fr]">
+        <div>
+          <h1 className="font-heading text-4xl font-bold tracking-tight text-foreground sm:text-6xl">
+            {profile.name}
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mt-3 text-sm font-medium text-muted-foreground">
+            {profile.education.degree} · {profile.education.school}
           </p>
+          <blockquote className="mt-6 max-w-xl text-lg italic text-foreground/90">
+            &ldquo;{profile.tagline}&rdquo;
+          </blockquote>
+          <p className="mt-2 max-w-xl text-sm text-muted-foreground">
+            {profile.subheading}
+          </p>
+          <p className="mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground">
+            {profile.intro}
+          </p>
+
+          <div className="mt-8 flex flex-wrap gap-3">
+            {quickLinks.map((link) =>
+              link.external ? (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
+                >
+                  {link.label}
+                </Link>
+              )
+            )}
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+
+        {/* Stats bento */}
+        <div className="grid grid-cols-2 gap-3 self-start">
+          {profile.stats.map((stat) => (
+            <div
+              key={stat.label}
+              className="flex flex-col justify-center rounded-xl border border-border/60 bg-card p-5"
+            >
+              <span className="font-mono text-3xl font-semibold text-foreground">
+                {stat.value}
+              </span>
+              <span className="mt-1 text-xs text-muted-foreground">{stat.label}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Domains */}
+      <section className="pb-16">
+        <div className="mb-6 flex items-end justify-between">
+          <h2 className="font-heading text-xl font-semibold text-foreground">
+            Explore by domain
+          </h2>
+          <Link
+            href="/projects"
+            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+            All projects &rarr;
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {domains.map((domain) => (
+            <DomainCard
+              key={domain.id}
+              domain={domain}
+              count={getProjectsByDomain(domain.id).length}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          ))}
         </div>
-      </main>
+      </section>
+
+      {/* Featured work */}
+      <section className="pb-24">
+        <h2 className="mb-6 font-heading text-xl font-semibold text-foreground">
+          Featured work
+        </h2>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {featuredProjects.map((project) => (
+            <ProjectCard key={project.slug} project={project} />
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

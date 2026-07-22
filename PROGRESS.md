@@ -23,14 +23,16 @@ Legend: [x] done · [~] in progress · [ ] not started
 - [x] Commit: content layer
 
 ## Phase 2 — Layout Architecture
-- [ ] Global layout: nav + footer
-- [ ] `/` — hero (Bento intro grid)
-- [ ] `/projects` — domain overview grid
-- [ ] `/projects/[domain]` — grouped project list, color-coded
-- [ ] Project detail panel/modal
-- [ ] `/about` — bio, skills, experience timeline, achievements, publications
-- [ ] `/contact` — links + resume download
-- [ ] Commit(s): layout per section
+- [x] Global layout: `SiteHeader` (desktop + mobile nav, resume button) + `SiteFooter` (social links)
+- [x] `/` — hero (Bento intro grid: name/tagline/intro, 4-stat bento grid, quick links, domain grid preview, featured work grid)
+- [x] `/projects` — domain overview grid (7 color-coded domain cards) + live client-side search across all 43 projects
+- [x] `/projects/[domain]` — grouped project list by subcategory, color-coded per domain, statically generated for all 7 domains
+- [x] Project detail modal (shadcn Dialog): flagship projects show full Problem/Approach/Outcome case study + metric pill + tech badges + Live Demo/GitHub buttons; others show tagline + tech + links
+- [x] `/about` — bio, 6 skills groups, experience timeline (dotted-line style), achievements, research & publications with real links
+- [x] `/contact` — contact link list (email/GitHub/LinkedIn/phone) + resume download, no data-collecting form
+- [x] `tsc --noEmit` clean, `next build` clean (all 7 domain pages statically prerendered)
+- [x] Manually clicked through every route + the project detail dialog in Chrome — all working
+- [x] Commit: layout architecture
 
 ## Phase 3 — Refactor & Accessibility
 - [ ] Swap raw elements for shadcn/ui primitives where it helps

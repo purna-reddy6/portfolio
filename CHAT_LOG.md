@@ -38,3 +38,12 @@ Scaffold the Next.js project (Phase 0) and begin the content-first data layer (P
 - Copied the resume PDF into `public/resume.pdf` for the site's own download link.
 - `tsc --noEmit` clean.
 - Next: layout architecture (Phase 2) — nav/footer, hero, projects domain overview + drill-down, about, contact.
+
+### Phase 2 execution
+- Built `SiteHeader`/`SiteFooter`, and the homepage hero as a Bento-style grid (name/tagline/intro + 4 stat tiles + quick links), a domain-grid preview, and a "Featured work" grid of the 5 flagship projects.
+- Built `/projects` (domain overview + live client-side search across all 43 projects) and `/projects/[domain]` (grouped-by-subcategory listing, color-coded per domain, statically generated via `generateStaticParams` for all 7 domains) — this is the domain drill-down pattern from `BUILD_PLAN.md`, inspired by (not copied from) the reference site's mind-map UX.
+- Built a single reusable `ProjectCard` (shadcn Dialog-based): flagship projects render the full Problem/Approach/Outcome case study, others render tagline + tech + links — matches the "every card opens a lightweight detail modal, no dead ends" guidance from the strategy PDF.
+- Built `/about` (skills matrix, dotted-line experience timeline, achievements, publications with the real extracted links) and `/contact` (plain link list + resume download — no data-collecting form, since that would need explicit sign-off per the safety rules this build follows).
+- Learned along the way: this shadcn/ui setup uses Base UI primitives (not Radix) — `Button` takes a `render` prop instead of `asChild`, so header/footer links use `buttonVariants()` directly on `<a>`/`<Link>` instead.
+- Verified with `tsc --noEmit` and `next build` (all 7 domain pages prerendered statically), then manually clicked through every route and the project dialog in a live Chrome tab — nav, domain drill-down, project modal (tested NexusGuard's full case study), about, and contact all render correctly.
+- Next: Phase 3 — accessibility/semantic-HTML pass and a genuine responsive check (the in-session browser's window-resize didn't visibly change the captured screenshot, so mobile layout needs a proper check next, not just trusting the Tailwind breakpoints).
