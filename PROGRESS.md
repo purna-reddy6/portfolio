@@ -35,10 +35,14 @@ Legend: [x] done · [~] in progress · [ ] not started
 - [x] Commit: layout architecture
 
 ## Phase 3 — Refactor & Accessibility
-- [ ] Swap raw elements for shadcn/ui primitives where it helps
-- [ ] Semantic landmarks, heading hierarchy, keyboard nav check
-- [ ] Responsive breakpoints (12-col → 4-col → 1-col)
-- [ ] Commit: a11y + responsive pass
+- [x] Removed unused `create-next-app` boilerplate assets (file/globe/next/vercel/window SVGs)
+- [x] Added a "Skip to content" link + `#main-content` landmark
+- [x] `aria-label`s on desktop vs. mobile nav (`<nav>` regions), `aria-label` on the search input
+- [x] Explicit `focus-visible` rings added to every custom-styled link/button that wasn't already using a shadcn primitive (header/footer nav, domain cards, project card action links, contact links, search input)
+- [x] Heading hierarchy checked per page (single `h1`, `h2` per section)
+- [x] `tsc --noEmit`, `next build`, and `npm run lint` all clean
+- [~] Responsive breakpoints — Tailwind classes in place (`grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`, `hidden sm:flex` / `flex sm:hidden` nav) but **not visually verified on an actual mobile viewport**: the in-session browser automation's window-resize tool didn't change the tab's real `window.innerWidth` (confirmed via JS — stayed at 1470px after resizing to 414px), so this needs a manual check in a real mobile browser or devtools device toolbar before calling it done.
+- [x] Commit: a11y + refactor pass
 
 ## Phase 4 — Motion Pass
 - [ ] Framer Motion hover/tap states on cards

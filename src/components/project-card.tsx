@@ -90,7 +90,7 @@ export function ProjectCard({ project }: { project: Project }) {
               href={project.liveDemo}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-8 flex-1 items-center justify-center rounded-lg bg-primary px-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/80"
+              className="inline-flex h-8 flex-1 items-center justify-center rounded-lg bg-primary px-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
             >
               Live Demo
             </a>
@@ -99,7 +99,7 @@ export function ProjectCard({ project }: { project: Project }) {
             href={project.github}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex h-8 flex-1 items-center justify-center rounded-lg border border-border px-3 text-sm font-medium transition-colors hover:bg-muted"
+            className="inline-flex h-8 flex-1 items-center justify-center rounded-lg border border-border px-3 text-sm font-medium transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
           >
             GitHub
           </a>

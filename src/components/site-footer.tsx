@@ -13,7 +13,7 @@ export function SiteFooter() {
             href={profile.links.github}
             target="_blank"
             rel="noreferrer"
-            className="text-muted-foreground transition-colors hover:text-foreground"
+            className="rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
           >
             GitHub
           </a>
@@ -21,19 +21,19 @@ export function SiteFooter() {
             href={profile.links.linkedin}
             target="_blank"
             rel="noreferrer"
-            className="text-muted-foreground transition-colors hover:text-foreground"
+            className="rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
           >
             LinkedIn
           </a>
           <a
             href={profile.links.email}
-            className="text-muted-foreground transition-colors hover:text-foreground"
+            className="rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
           >
             Email
           </a>
           <Link
             href="/projects"
-            className="text-muted-foreground transition-colors hover:text-foreground"
+            className="rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
           >
             Projects
           </Link>

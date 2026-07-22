@@ -25,7 +25,8 @@ export function ProjectSearch() {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search any project, tech, or domain..."
-        className="w-full rounded-lg border border-border/60 bg-card px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-ring focus:outline-none"
+        aria-label="Search projects"
+        className="w-full rounded-lg border border-border/60 bg-card px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
       />
       {query.trim() && (
         <div className="mt-4">

@@ -19,12 +19,12 @@ export function SiteHeader() {
         >
           Purna Sainath Reddy V
         </Link>
-        <nav className="hidden items-center gap-6 sm:flex">
+        <nav aria-label="Primary" className="hidden items-center gap-6 sm:flex">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              className="rounded-sm text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
             >
               {link.label}
             </Link>
@@ -39,7 +39,10 @@ export function SiteHeader() {
           Resume
         </a>
       </div>
-      <nav className="flex items-center gap-5 border-t border-border/60 px-6 py-2 sm:hidden">
+      <nav
+        aria-label="Primary mobile"
+        className="flex items-center gap-5 border-t border-border/60 px-6 py-2 sm:hidden"
+      >
         {navLinks.map((link) => (
           <Link
             key={link.href}

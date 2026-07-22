@@ -30,7 +30,7 @@ export default function ContactPage() {
             href={link.href}
             target={link.href.startsWith("http") ? "_blank" : undefined}
             rel={link.href.startsWith("http") ? "noreferrer" : undefined}
-            className="flex items-center justify-between px-5 py-4 text-sm transition-colors hover:bg-muted/40"
+            className="flex items-center justify-between px-5 py-4 text-sm transition-colors hover:bg-muted/40 focus-visible:bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:-outline-offset-2"
           >
             <span className="text-muted-foreground">{link.label}</span>
             <span className="font-medium text-foreground">{link.value}</span>
@@ -42,7 +42,7 @@ export default function ContactPage() {
         href={profile.links.resume}
         target="_blank"
         rel="noreferrer"
-        className="mt-6 inline-flex h-10 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/80"
+        className="mt-6 inline-flex h-10 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
       >
         Download Resume
       </a>
