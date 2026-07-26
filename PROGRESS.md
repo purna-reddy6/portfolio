@@ -65,7 +65,11 @@ Everything in Phases 0–5 above is implemented, committed, and passing every au
 
 ## Session 2 (2026-07-26)
 - [x] Updated `public/resume.pdf` with the latest resume from `/Users/saii/Desktop/All-resumes/Purna-Reddy-Resume.pdf` (confirmed by SHA-256 that content had actually changed before copying)
-- [~] Deploying to Vercel (explicit go-ahead given)
+- [x] Pushed the full repo history to `https://github.com/purna-reddy6/portfolio` (`main` branch) — user authenticated via `gh auth login` (device code flow), `git` configured to use it as credential helper
+- [x] Created Vercel project `purna-reddys-projects/portfolio`, connected it to the GitHub repo (user completed the GitHub App authorization in the Vercel dashboard), confirmed via `vercel git connect` → "already connected to your project"
+- [x] First production deployment shipped and verified live: `https://portfolio-zeta-rosy-96.vercel.app` (`/`, `/resume.pdf`, `/projects/ai-security` all curl-checked 200)
+- [x] Future pushes to `main` will now auto-deploy to Vercel (standard behavior once a project is Git-connected) — no more manual `vercel --prod` needed for routine content changes
+- [x] Confirmed `.vercel/` and `.env.local` (holds a Vercel OIDC token) stay out of git — already covered by the existing `.gitignore`
 
 ## Not started (needs explicit go-ahead first)
 - [ ] Custom domain

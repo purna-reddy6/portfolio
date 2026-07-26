@@ -84,3 +84,12 @@ Scaffold the Next.js project (Phase 0) and begin the content-first data layer (P
 - Copied the updated resume over `public/resume.pdf` (the file the site's Resume buttons/download link point to). Left `docs/Purna-Reddy-Resume.pdf` (the research-phase reference copy) untouched, since the ask was specifically to update the file used *in the webpage*, and "don't change anything else."
 - Committed this as its own change.
 - Proceeding to deploy to Vercel (explicit go-ahead given in this message).
+
+### Deployment
+- User authenticated the Vercel CLI themselves (`npx vercel login`, confirmed via `vercel whoami` → `vpurnareddy`) — I never touched their password.
+- User asked to push to `https://github.com/purna-reddy6/portfolio.git` and wire up auto-deploy. No git remote existed locally, and `git push` over HTTPS failed against a stale cached credential ("Invalid username or token"). Rather than ask for a raw token pasted into chat, installed GitHub CLI (`brew install gh`) and ran `gh auth login --web`, which gave a one-time device code (`87B7-2C81`) for the user to approve at github.com/login/device themselves. Confirmed success via `gh auth status` (logged in as `purna-reddy6`), then `gh auth setup-git` to wire git's credential helper, then `git push -u origin main` — succeeded.
+- `vercel link --yes` created the Vercel project (`purna-reddys-projects/portfolio`) but auto-connecting the GitHub repo failed ("Failed to connect... make sure you have access") — this is a separate authorization (the Vercel GitHub App needs access granted on the GitHub side), which isn't something to click through on the user's behalf. Sent them the dashboard link (`vercel.com/purna-reddys-projects/portfolio/settings/git`) to connect it themselves.
+- After the user confirmed they'd connected it, verified with `vercel git connect` → "already connected to your project", then ran `vercel --prod --yes` for the first production deployment.
+- Verified live: `https://portfolio-zeta-rosy-96.vercel.app` — home, `/resume.pdf` (the just-updated file), and a domain page all curl-checked 200.
+- From here, every future `git push` to `main` will auto-deploy to Vercel — that was the point of connecting the repo rather than doing one-off CLI deploys.
+- Confirmed `.vercel/` and `.env.local` (contains a Vercel OIDC token from the link step) are already covered by `.gitignore` and never got staged.
