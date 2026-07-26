@@ -71,3 +71,16 @@ Scaffold the Next.js project (Phase 0) and begin the content-first data layer (P
 - One honest gap: mobile-viewport rendering was never independently confirmed in this session — the browser automation's window-resize tool didn't actually change the tab's `window.innerWidth` (checked via JS, stayed at 1470px). The Tailwind responsive classes are in place and are standard, well-understood patterns, but this is flagged rather than claimed as verified.
 
 **v1 is feature-complete and committed as of this point** — all 5 planned phases done. Local commits only; nothing has been pushed to a remote or deployed anywhere, per the working agreement in `BUILD_PLAN.md`. Waiting on the user's design direction for the next round, per their original request.
+
+---
+
+## Session 2 — 2026-07-26
+
+### User's request (verbatim)
+> i need you to change the resume file to /Users/saii/Desktop/All-resumes/Purna-Reddy-Resume.pdf in the portfolio web page, dont change anything else , and deploy this into vercel
+
+### Actions
+- Diffed the resume at `/Users/saii/Desktop/All-resumes/Purna-Reddy-Resume.pdf` against the one already in `public/resume.pdf` by SHA-256 — confirmed the resume content had actually changed (not a no-op).
+- Copied the updated resume over `public/resume.pdf` (the file the site's Resume buttons/download link point to). Left `docs/Purna-Reddy-Resume.pdf` (the research-phase reference copy) untouched, since the ask was specifically to update the file used *in the webpage*, and "don't change anything else."
+- Committed this as its own change.
+- Proceeding to deploy to Vercel (explicit go-ahead given in this message).

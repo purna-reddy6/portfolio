@@ -63,7 +63,10 @@ Legend: [x] done · [~] in progress · [ ] not started
 ## v1 status: feature-complete, unverified on mobile viewport
 Everything in Phases 0–5 above is implemented, committed, and passing every automated check available in this session. The one open item is a real mobile-viewport check — flagging it rather than claiming something that wasn't actually confirmed.
 
+## Session 2 (2026-07-26)
+- [x] Updated `public/resume.pdf` with the latest resume from `/Users/saii/Desktop/All-resumes/Purna-Reddy-Resume.pdf` (confirmed by SHA-256 that content had actually changed before copying)
+- [~] Deploying to Vercel (explicit go-ahead given)
+
 ## Not started (needs explicit go-ahead first)
-- [ ] Deployment (GitHub Pages / Vercel)
 - [ ] Custom domain
 - [ ] Design refresh once user provides their own design direction
