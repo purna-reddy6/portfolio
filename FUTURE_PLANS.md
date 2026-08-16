@@ -7,7 +7,7 @@ The original "Design" section below was written for the first neutral dark Bento
 
 ## Design v2 (pixel/fire) — deferred ideas
 - **Alternate fire palettes** — the original Claude Design file defined `fireColor` as a togglable prop (`red` #fc0201 default, `inferno` #e2260a, `ember` #c21a08). Only `red` is wired into the live site; adding a palette switcher (or per-domain color) is a natural follow-up.
-- **WebM background variant** — shipped the background as H.264 MP4 only (~865KB, down from a 14MB source GIF). A VP9 WebM alongside it via `<source>` would shave more bytes for browsers that support it; skipped for now since the ffmpeg VP9 encode kept failing in this environment and MP4 alone is already a big win.
+- **WebM background variant** — shipped the background as H.264 MP4 only (~4.9MB, full 1152×648 resolution, CRF 16 + `-tune animation`, down from a 14MB source GIF). First pass over-compressed it (960px width + CRF 28) and visibly hurt quality — re-encoded at native resolution and near-lossless CRF per user feedback; prioritize clarity over file size for this asset going forward. A VP9 WebM alongside it via `<source>` would still shave bytes for browsers that support it; skipped for now since the ffmpeg VP9 encode kept failing in this environment.
 - **About page tab content overflow** — each tab panel has `overflow-y-auto` as a pragmatic fallback in case content doesn't fit some smaller viewport; worth a real check once mobile viewport testing is possible (see gap below) and tightening spacing further if needed.
 - **Individual project detail routes** (`/projects/[domain]/[slug]`) — still using an in-page modal for project detail; a dedicated route is worth it if per-project SEO or deep-linking becomes a goal.
 

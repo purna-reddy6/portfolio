@@ -90,6 +90,15 @@ User supplied a real design this time: a hero slide built in Claude Design ("Por
 - [x] Removed now-unused code: old `SiteHeader`/`SiteFooter`/`DomainCard`/`motion-primitives` components, the `motion` npm dependency, default Bento-grid styling
 - [x] `tsc --noEmit`, `next build`, `npm run lint` all clean
 - [x] Manually clicked through every route in Chrome (home, projects, full-stack domain page, project modal, about with all 4 tabs, contact) — all render correctly, video/scanlines/fonts working, no console errors
+- [x] Committed and pushed — auto-deployed to Vercel, confirmed live (new deployment "Ready" within ~30s of push)
+
+## Session 3b (2026-08-16) — background quality fix
+User flagged that the compressed background looked noticeably worse than the original. Root cause: first encode had downscaled 1152×648 → 960px width *and* used CRF 28 (fairly aggressive for x264) — both avoidable losses.
+- [x] Re-extracted the source GIF from the original export (had to ask the user to move the zip from Downloads into `docs/` a second time, since it was deleted after the first extraction)
+- [x] Re-encoded at full native resolution (no scale filter) with CRF 16, `-preset slower`, and `-tune animation` (better for flat-color pixel art than the default psy-visual tuning) — ~4.9MB, visibly crisper on inspection (zoomed screenshot comparison of the "COMMIT PUSH" sign and character sprites)
+- [x] Regenerated the poster JPG directly from the source GIF at full resolution and higher JPEG quality
+- [x] Re-verified: `tsc --noEmit`, `next build`, `npm run lint` clean; visually confirmed in browser
+- [x] Committed and pushed
 
 ## Not started (needs explicit go-ahead first)
 - [ ] Custom domain

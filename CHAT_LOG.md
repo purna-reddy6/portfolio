@@ -125,3 +125,17 @@ The source GIF was 14MB (360 frames at 1152×648) — far too heavy to ship as a
 - Removed everything the redesign made obsolete: `SiteHeader`, `SiteFooter`, `DomainCard`, `motion-primitives.tsx`, the `motion` npm package, the old Bento-grid styling.
 - Verified: `tsc --noEmit`, `next build`, `npm run lint` all clean; clicked through every route + all 4 About tabs + a project modal in Chrome; browser console clean.
 - Next: commit and push — will auto-deploy to Vercel via the existing Git connection from Session 2.
+- Committed (`d21707f`) and pushed; confirmed the new production deployment went `Ready` within ~30s and the live site was serving the redesign (`pixel-fire-bg` asset present in the HTML, `/resume.pdf`, `/about`, `/projects/full-stack` all 200).
+
+### User feedback: background quality
+> why did u compressed the background file, i feel like the quality has drastically reduced compared to the one i had in claude design, tryto keep the same quality and clarty
+
+Correct — the first encode was overly aggressive: downscaled 1152×648 to 960px width *and* used CRF 28. Both were unnecessary; video compression didn't need to also throw away resolution.
+
+- Needed the original GIF again to re-encode properly, but it had already been deleted after the first extraction. Asked the user to move the same zip from Downloads into `docs/` a second time (same manual step as before, since the sandbox still can't read `~/Downloads` directly).
+- Re-encoded at full native resolution (no scale filter), CRF 16, `-preset slower`, `-tune animation` (x264's animation tuning suits flat-color pixel art better than the default psy-visual settings, which tend to blur/ring on hard edges). Result: ~4.9MB, visibly sharper — checked via a zoomed-in screenshot comparison of the "COMMIT PUSH" sign and character sprites against the earlier compressed version.
+- Regenerated the poster JPG directly from the source GIF (not re-derived from a lossy intermediate) at full resolution and higher JPEG quality.
+- Cleaned up the re-extracted temp files and the zip again afterward.
+- Re-verified build/lint/typecheck clean, confirmed visually in the browser, committed and pushed.
+
+Takeaway for future asset work on this project: prioritize visual fidelity over file size for this particular background — 4-5MB is an acceptable cost for the hero's signature visual, whereas the first pass optimized too hard for size at quality's expense.
