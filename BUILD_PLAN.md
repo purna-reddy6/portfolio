@@ -1,5 +1,29 @@
 # Build Plan — Purna Sainath Reddy V Portfolio
 
+## Addendum: Design System v2 (2026-08-16) — pixel/fire redesign
+
+User designed a hero slide in Claude Design (`docs/design-export/Portfolio Background.dc.html`, shared via `claude.ai/design/p/6171cd02-...`) and asked to restyle the **entire site** to match it, with every page rebuilt as a **single no-scroll 100dvh "slide"** (confirmed: separate routes stay, but each route is one full-screen view, not a scrolling page).
+
+**Source design, extracted directly from the exported project file:**
+- Fonts: `Silkscreen` (700, pixel display font) for headlines/labels, `JetBrains Mono` for nav/body/mono text
+- Palette: red `#fc0201` background, cream `#fff8f0` / translucent cream for text, near-black `#120400` for the bold headline tier
+- Full-bleed animated background: pixel-art office-chair "commit/push" scene with an animated fire strip along the bottom (360-frame GIF, re-encoded to `public/pixel-fire-bg.mp4` — the original GIF was 14MB, compressed to ~865KB H.264 via ffmpeg; a static `pixel-fire-bg-poster.jpg` serves as the `prefers-reduced-motion` fallback and video poster)
+- Optional CRT scanline overlay (repeating-linear-gradient animation)
+- Layout: top-right nav, centered two-tier headline (light name / bold "Portfolio"), numbered "Selected Work" list (2-col, 8 items), contact line with blinking cursor
+
+**How this is being applied sitewide:**
+- Shared `PixelBackground` (video+poster+scanlines) and `PixelNav` (Work/About/Contact/Resume) live in the root layout so every route gets the same treatment
+- Domain color-coding (the old per-domain hex accents) is dropped in favor of the design's numbered-list convention (`01`, `02`, ...) — matches the source design's own pattern instead of inventing a new one
+- Each page is redesigned to fit one screen without scrolling:
+  - `/` — the hero itself, adapted with real name/contact and the 7 domains + "all projects" as the 8-item work list
+  - `/projects` — domain list in the same numbered format
+  - `/projects/[domain]` — compact numbered project list per domain (detail still opens in a modal, which may scroll internally — that's an overlay, not the page)
+  - `/about` — bio pinned + an in-slide tab switcher (Skills / Experience / Achievements / Research) rather than a long scroll
+  - `/contact` — compact contact list, fits naturally
+- The shadcn Dialog (project detail) is restyled to match (dark/cream/mono) but keeps its existing Problem/Approach/Outcome structure
+
+This replaces the original neutral dark Bento-grid look built in the first pass. The old design isn't lost — it's in git history (everything up to commit `a21090f` / the resume-update and deploy commits).
+
 ## Sources consulted before writing this plan
 1. `docs/Portfolio Building Strategy.pdf` — user's own research (content-first workflow, Bento Grid system, Next.js/Tailwind/shadcn stack, 5-phase roadmap).
 2. `docs/Purna-Reddy-Resume.pdf` — bio, skills, 5 flagship case studies, 11 other live projects, experience, publications, achievements.

@@ -1,118 +1,113 @@
 import Link from "next/link";
 import { profile } from "@/data/profile";
 import { domains } from "@/data/domains";
-import { featuredProjects, getProjectsByDomain } from "@/data/projects";
-import { DomainCard } from "@/components/domain-card";
-import { ProjectCard } from "@/components/project-card";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { MotionGrid, MotionItem } from "@/components/motion-primitives";
 
-const quickLinks = [
-  { href: "/projects", label: `View ${profile.stats[0].value}+ projects` },
-  { href: profile.links.github, label: "GitHub", external: true },
-  { href: "/about", label: "Experience & achievements" },
-  { href: profile.links.resume, label: "Resume", external: true },
+const workItems = [
+  ...domains.map((d, i) => ({
+    tag: String(i + 1).padStart(2, "0"),
+    name: d.shortLabel,
+    href: `/projects/${d.id}`,
+  })),
+  { tag: "08", name: "All Projects", href: "/projects" },
 ];
 
 export default function Home() {
   return (
-    <div className="mx-auto max-w-6xl px-6">
-      {/* Hero */}
-      <section className="grid grid-cols-1 gap-10 py-16 sm:py-24 lg:grid-cols-[1.4fr_1fr]">
-        <div>
-          <h1 className="font-heading text-4xl font-bold tracking-tight text-foreground sm:text-6xl">
-            {profile.name}
-          </h1>
-          <p className="mt-3 text-sm font-medium text-muted-foreground">
-            {profile.education.degree} · {profile.education.school}
-          </p>
-          <blockquote className="mt-6 max-w-xl text-lg italic text-foreground/90">
-            &ldquo;{profile.tagline}&rdquo;
-          </blockquote>
-          <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-            {profile.subheading}
-          </p>
-          <p className="mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            {profile.intro}
-          </p>
+    <div className="flex h-full w-full flex-col items-center justify-center gap-[18px] px-6 py-6 text-center">
+      <div
+        className="uppercase text-[var(--pixel-cream-65)]"
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "clamp(10px,1.1vw,13px)",
+          letterSpacing: "0.25em",
+        }}
+      >
+        Portfolio &mdash; Est. 2026
+      </div>
 
-          <div className="mt-8 flex flex-wrap gap-3">
-            {quickLinks.map((link) =>
-              link.external ? (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
-                >
-                  {link.label}
-                </a>
-              ) : (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
-                >
-                  {link.label}
-                </Link>
-              )
-            )}
-          </div>
+      <div>
+        <div
+          className="font-bold text-[var(--pixel-cream)]"
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(16px,2.4vw,26px)",
+            lineHeight: 1.15,
+            letterSpacing: "0.06em",
+            textShadow: "0 3px 0 rgba(0,0,0,0.25)",
+          }}
+        >
+          {profile.name}
         </div>
+        <div
+          className="mt-0.5 font-bold text-[var(--pixel-dark)]"
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(30px,4.6vw,52px)",
+            lineHeight: 1.05,
+            letterSpacing: "0.04em",
+          }}
+        >
+          Portfolio
+        </div>
+      </div>
 
-        {/* Stats bento */}
-        <MotionGrid className="grid grid-cols-2 gap-3 self-start">
-          {profile.stats.map((stat) => (
-            <MotionItem
-              key={stat.label}
-              className="flex flex-col justify-center rounded-xl border border-border/60 bg-card p-5 transition-transform duration-150 hover:-translate-y-1"
+      <div className="flex flex-col items-center gap-2.5">
+        <div
+          className="uppercase text-[var(--pixel-cream-55)]"
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(9px,1vw,12px)",
+            letterSpacing: "0.3em",
+          }}
+        >
+          Selected Work
+        </div>
+        <div
+          className="grid gap-x-11 gap-y-2"
+          style={{ gridTemplateColumns: "repeat(2, minmax(160px, 220px))" }}
+        >
+          {workItems.map((item) => (
+            <Link
+              key={item.tag}
+              href={item.href}
+              className="flex items-baseline gap-2.5 rounded-sm text-left focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--pixel-cream)]"
             >
-              <span className="font-mono text-3xl font-semibold text-foreground">
-                {stat.value}
+              <span
+                className="min-w-[20px] text-white/45"
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "clamp(9px,1vw,12px)",
+                }}
+              >
+                {item.tag}
               </span>
-              <span className="mt-1 text-xs text-muted-foreground">{stat.label}</span>
-            </MotionItem>
+              <span
+                className="font-bold uppercase text-[var(--pixel-cream)] transition-colors hover:text-white"
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "clamp(10px,1.1vw,13px)",
+                  letterSpacing: "0.03em",
+                }}
+              >
+                {item.name}
+              </span>
+            </Link>
           ))}
-        </MotionGrid>
-      </section>
-
-      {/* Domains */}
-      <section className="pb-16">
-        <div className="mb-6 flex items-end justify-between">
-          <h2 className="font-heading text-xl font-semibold text-foreground">
-            Explore by domain
-          </h2>
-          <Link
-            href="/projects"
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-          >
-            All projects &rarr;
-          </Link>
         </div>
-        <MotionGrid className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {domains.map((domain) => (
-            <MotionItem key={domain.id}>
-              <DomainCard domain={domain} count={getProjectsByDomain(domain.id).length} />
-            </MotionItem>
-          ))}
-        </MotionGrid>
-      </section>
+      </div>
 
-      {/* Featured work */}
-      <section className="pb-24">
-        <h2 className="mb-6 font-heading text-xl font-semibold text-foreground">
-          Featured work
-        </h2>
-        <MotionGrid className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {featuredProjects.map((project) => (
-            <MotionItem key={project.slug}>
-              <ProjectCard project={project} />
-            </MotionItem>
-          ))}
-        </MotionGrid>
-      </section>
+      <a
+        href={profile.links.email}
+        className="flex items-center gap-1.5 uppercase text-[var(--pixel-cream-55)] transition-colors hover:text-[var(--pixel-cream)]"
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "clamp(9px,1vw,12px)",
+          letterSpacing: "0.2em",
+        }}
+      >
+        <span>Say hi at {profile.email}</span>
+        <span className="[animation:pixel-cursor-blink_1s_step-start_infinite]">_</span>
+      </a>
     </div>
   );
 }

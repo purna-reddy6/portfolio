@@ -14,26 +14,50 @@ const contactLinks = [
 
 export default function ContactPage() {
   return (
-    <div className="mx-auto max-w-2xl px-6 py-16">
-      <h1 className="font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+    <div className="flex h-full w-full flex-col items-center justify-center gap-6 px-6 py-6 text-center">
+      <div
+        className="uppercase text-[var(--pixel-cream-65)]"
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "clamp(10px,1.1vw,13px)",
+          letterSpacing: "0.25em",
+        }}
+      >
+        Get In Touch
+      </div>
+
+      <div
+        className="font-bold text-[var(--pixel-dark)]"
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "clamp(30px,4.6vw,48px)",
+          lineHeight: 1.05,
+          letterSpacing: "0.04em",
+        }}
+      >
         Contact
-      </h1>
-      <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-        Based in {profile.location}. Reach out directly — happy to talk about any of the
-        work in the {profile.stats[0].value}-project catalog, or anything else.
+      </div>
+
+      <p
+        className="max-w-md text-[var(--pixel-cream-70)]"
+        style={{ fontFamily: "var(--font-mono)", fontSize: "12px" }}
+      >
+        Based in {profile.location}. Happy to talk about any of the{" "}
+        {profile.stats[0].value}-project catalog, or anything else.
       </p>
 
-      <div className="mt-10 divide-y divide-border/60 rounded-xl border border-border/60 bg-card">
+      <div className="flex w-full max-w-sm flex-col divide-y divide-[var(--pixel-cream-55)]/30 rounded-lg border border-[var(--pixel-cream-55)]/40">
         {contactLinks.map((link) => (
           <a
             key={link.label}
             href={link.href}
             target={link.href.startsWith("http") ? "_blank" : undefined}
             rel={link.href.startsWith("http") ? "noreferrer" : undefined}
-            className="flex items-center justify-between px-5 py-4 text-sm transition-colors hover:bg-muted/40 focus-visible:bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:-outline-offset-2"
+            className="flex items-center justify-between px-4 py-2.5 transition-colors hover:bg-[var(--pixel-cream)]/10 focus-visible:bg-[var(--pixel-cream)]/10 focus-visible:outline-none"
+            style={{ fontFamily: "var(--font-mono)", fontSize: "12px" }}
           >
-            <span className="text-muted-foreground">{link.label}</span>
-            <span className="font-medium text-foreground">{link.value}</span>
+            <span className="uppercase text-[var(--pixel-cream-55)]">{link.label}</span>
+            <span className="font-bold text-[var(--pixel-cream)]">{link.value}</span>
           </a>
         ))}
       </div>
@@ -42,7 +66,8 @@ export default function ContactPage() {
         href={profile.links.resume}
         target="_blank"
         rel="noreferrer"
-        className="mt-6 inline-flex h-10 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+        className="inline-flex h-10 items-center justify-center rounded-lg bg-[var(--pixel-cream)] px-5 text-sm font-bold uppercase tracking-wide text-[var(--pixel-dark)] transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--pixel-cream)]"
+        style={{ fontFamily: "var(--font-mono)" }}
       >
         Download Resume
       </a>

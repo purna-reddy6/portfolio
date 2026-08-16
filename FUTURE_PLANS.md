@@ -1,29 +1,29 @@
 # Future Plans / Deferred Ideas
 
-Things deliberately not in v1, with why, so nothing gets lost.
+Things deliberately not in v1 (or not in the current design v2), with why, so nothing gets lost.
 
-## Design
-- **User's own design plan** — user said they'll provide their own design direction later. v1 ships with a clean, original, functional design so there's a live baseline to react to, not a blocker on decisions.
-- **Kinetic Typography** (mouse/scroll-reactive hero text) — nice touch from the strategy PDF, deferred until layout is locked.
-- **Spline 3D scenes** — WebGL bundle size + lazy-load correctness is real risk for a v1; add once core site is stable and only if it earns its performance cost.
-- **Rive vector state machines** — same reasoning as Spline; revisit for micro-interactions once the base UI is settled.
-- **Dark/light theme toggle** — PDF flags this as a common AI-generated-code breakage point (conflicting state hooks). Ship a single polished theme first; add a toggle later if wanted, tested carefully.
+## Superseded by the 2026-08-16 redesign (kept for history, no longer active plans)
+The original "Design" section below was written for the first neutral dark Bento-grid build. The user has since supplied a real design (Claude Design "Portfolio Background" — pixel/fire, Silkscreen + JetBrains Mono, single-slide-per-page) and the whole site was rebuilt to match it. That old design is still in git history (through commit `a21090f`) if ever wanted again. Superseded items: Kinetic Typography, Spline 3D, Rive, dark/light theme toggle — none of these apply to the current pixel aesthetic and would need to be reconsidered from scratch if revisited.
+
+## Design v2 (pixel/fire) — deferred ideas
+- **Alternate fire palettes** — the original Claude Design file defined `fireColor` as a togglable prop (`red` #fc0201 default, `inferno` #e2260a, `ember` #c21a08). Only `red` is wired into the live site; adding a palette switcher (or per-domain color) is a natural follow-up.
+- **WebM background variant** — shipped the background as H.264 MP4 only (~865KB, down from a 14MB source GIF). A VP9 WebM alongside it via `<source>` would shave more bytes for browsers that support it; skipped for now since the ffmpeg VP9 encode kept failing in this environment and MP4 alone is already a big win.
+- **About page tab content overflow** — each tab panel has `overflow-y-auto` as a pragmatic fallback in case content doesn't fit some smaller viewport; worth a real check once mobile viewport testing is possible (see gap below) and tightening spacing further if needed.
+- **Individual project detail routes** (`/projects/[domain]/[slug]`) — still using an in-page modal for project detail; a dedicated route is worth it if per-project SEO or deep-linking becomes a goal.
 
 ## Content
-- Individual project detail **routes** (`/projects/[domain]/[slug]`) with full README-derived write-ups, screenshots, and embedded demo videos — v1 uses an in-page panel; worth doing if SEO per-project or deep-linking becomes a goal.
 - Tier-based live demo deployment for the flagship projects (mirroring the tiering idea in the reference PLAN.md: static repos → GitHub Pages, React/TS repos → Vercel, backend repos → a hosting credit) — not started, needs the user's own hosting accounts/credits and explicit go-ahead.
 - Blog / notes section if the user wants to publish write-ups of the research papers.
 
 ## Infra
-- Deployment target (GitHub Pages vs Vercel) — not decided, will ask before doing anything that pushes to a remote or a live host.
-- Custom domain — same, needs the user's domain/registrar details and explicit go-ahead.
+- Custom domain — not set up yet, needs the user's domain/registrar details and explicit go-ahead.
 - Analytics (privacy-respecting, e.g. Plausible/Umami) if the user wants visit data.
-- Automated CI (lint/build check on push) once the repo has a remote.
+- Automated CI (lint/build check on push) — the repo now has a remote (`github.com/purna-reddy6/portfolio`) and Vercel auto-deploys on push; a separate GitHub Actions lint/build gate isn't set up yet.
 
-## Open questions for the user (not blocking v1, but worth answering eventually)
-- Preferred visual identity (color palette, typeface, tone — playful like the reference site, or more formal/technical)?
-- Should individual projects get real live demos, or is "GitHub + good README" enough for most (per the reference PLAN.md's tiering)?
+## Open questions for the user (not blocking, but worth answering eventually)
+- Should individual projects get real live demos, or is "GitHub + good README" enough for most (per the reference PLAN.md's tiering)? (Many already have real live demo links pulled from the resume PDF.)
 - Any projects from the 43 that should be hidden/archived rather than shown?
+- Want a fire-color or theme switcher exposed on the site itself, or keep it fixed to red?
 
-## Known gap to close before calling v1 fully verified
-- **Mobile-viewport check** — the in-session Chrome automation's window-resize tool didn't actually change the tab's real viewport (confirmed via `window.innerWidth` staying at 1470px after resizing to 414px), so the responsive Tailwind breakpoints were never visually confirmed on an actual small screen. They're standard, well-tested patterns (`grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`, `hidden sm:flex` nav swap), but do a real check — phone, or browser devtools device toolbar — before treating mobile as done.
+## Known gap to close before calling this fully verified
+- **Mobile-viewport check** — the in-session Chrome automation's window-resize tool has never actually changed the tab's real viewport in any session so far (confirmed via `window.innerWidth` staying at desktop width after resizing). The single-slide layouts use `clamp()` sizing and should scale down reasonably, but this needs a real phone or devtools device-toolbar check before being called done — same open item as before the redesign, still unresolved.

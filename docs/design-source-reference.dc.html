@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    @keyframes scan { 0% { background-position: 0 0; } 100% { background-position: 0 4px; } }
+    @keyframes cursorBlink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+    body { margin: 0; }
+  </style>
+</helmet>
+<div style="position:relative;width:100vw;height:100dvh;overflow:hidden;background:{{ topColor }};">
+
+  <sc-if value="{{ scanlinesOn }}">
+    <div style="position:absolute;inset:0;pointer-events:none;z-index:5;opacity:0.15;background-image:repeating-linear-gradient(0deg, rgba(0,0,0,0.6) 0px, rgba(0,0,0,0.6) 1px, transparent 1px, transparent 3px);animation:scan 0.4s linear infinite;"></div>
+  </sc-if>
+
+  <img src="uploads/Your paragraph text2.gif" alt="office chair commit-push animation" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:top left;image-rendering:pixelated;z-index:1;" />
+
+  <nav style="position:absolute;top:28px;right:36px;z-index:6;display:flex;gap:32px;font-family:'JetBrains Mono', monospace;">
+    <a href="#" style="color:rgba(255,240,230,0.75);text-decoration:none;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;">Work</a>
+    <a href="#" style="color:rgba(255,240,230,0.75);text-decoration:none;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;">About</a>
+    <a href="#" style="color:rgba(255,240,230,0.75);text-decoration:none;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;">Contact</a>
+  </nav>
+
+  <div style="position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:18px;padding:24px;box-sizing:border-box;font-family:'JetBrains Mono', monospace;">
+
+    <div style="color:rgba(255,225,205,0.65);font-family:'Silkscreen', monospace;font-size:clamp(10px,1.1vw,13px);letter-spacing:0.25em;text-transform:uppercase;">Portfolio &mdash; Est. 2026</div>
+
+    <div>
+      <div style="color:#fff8f0;font-family:'Silkscreen', monospace;font-weight:700;font-size:clamp(20px,3vw,32px);line-height:1.15;letter-spacing:0.06em;text-shadow:0 3px 0 rgba(0,0,0,0.25);">Your Name</div>
+      <div style="color:#120400;font-family:'Silkscreen', monospace;font-weight:700;font-size:clamp(30px,4.6vw,52px);line-height:1.05;letter-spacing:0.04em;margin-top:2px;">Portfolio</div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;align-items:center;">
+      <div style="color:rgba(255,225,205,0.55);font-family:'Silkscreen', monospace;font-size:clamp(9px,1vw,12px);letter-spacing:0.3em;text-transform:uppercase;">Selected Work</div>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(160px,220px));column-gap:44px;row-gap:8px;">
+        <sc-for list="{{ workItems }}" as="w" hint-placeholder-count="8">
+          <div style="display:flex;gap:10px;align-items:baseline;text-align:left;">
+            <span style="color:rgba(255,255,255,0.45);font-family:'Silkscreen', monospace;font-size:clamp(9px,1vw,12px);min-width:20px;">{{ w.tag }}</span>
+            <span style="color:#fff8f0;font-family:'JetBrains Mono', monospace;font-weight:700;font-size:clamp(10px,1.1vw,13px);letter-spacing:0.03em;text-transform:uppercase;">{{ w.name }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="color:rgba(255,225,205,0.55);font-family:'Silkscreen', monospace;font-size:clamp(9px,1vw,12px);letter-spacing:0.2em;text-transform:uppercase;display:flex;align-items:center;gap:6px;">
+      <span>Say hi at yourname@email.com</span><span style="animation:cursorBlink 1s step-start infinite;">_</span>
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: {&quot;width&quot;: 1440, &quot;height&quot;: 900},
+  &quot;fireColor&quot;: {&quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;red&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;options&quot;: [&quot;red&quot;, &quot;inferno&quot;, &quot;ember&quot;], &quot;section&quot;: &quot;Background&quot;},
+  &quot;showScanlines&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Effects&quot;}
+}">
+class Component extends DCLogic {
+  renderVals() {
+    const palettes = { red: '#fc0201', inferno: '#e2260a', ember: '#c21a08' };
+    const key = this.props.fireColor ?? 'red';
+    const workItems = [
+      { tag: '01', name: 'E-Commerce App' },
+      { tag: '02', name: 'Design System' },
+      { tag: '03', name: 'Mobile Banking' },
+      { tag: '04', name: 'Portfolio Site' },
+      { tag: '05', name: 'API Platform' },
+      { tag: '06', name: 'Browser Extension' },
+      { tag: '07', name: 'Data Dashboard' },
+      { tag: '08', name: 'Open Source Lib' },
+    ];
+    return {
+      topColor: palettes[key] ?? palettes.red,
+      scanlinesOn: this.props.showScanlines ?? true,
+      workItems,
+    };
+  }
+}
+</script>
+</body>
+</html>

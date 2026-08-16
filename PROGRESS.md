@@ -71,6 +71,26 @@ Everything in Phases 0–5 above is implemented, committed, and passing every au
 - [x] Future pushes to `main` will now auto-deploy to Vercel (standard behavior once a project is Git-connected) — no more manual `vercel --prod` needed for routine content changes
 - [x] Confirmed `.vercel/` and `.env.local` (holds a Vercel OIDC token) stay out of git — already covered by the existing `.gitignore`
 
+## Session 3 (2026-08-16) — Design System v2: pixel/fire redesign
+User supplied a real design this time: a hero slide built in Claude Design ("Portfolio Background"), shared via a `claude.ai/design/p/...` link. Asked to (1) restyle the *entire* site to match it and (2) make every page a single no-scroll 100dvh "slide" (confirmed: separate routes stay, each is one full-screen view).
+
+- [x] Pulled the design source: WebFetch couldn't authenticate to the `claude.ai/design/...` URL, so opened it in the user's own logged-in Chrome via browser automation, used Share → Export → Project HTML (zip) to get the real source instead of eyeballing screenshots. Sandbox couldn't read `~/Downloads` (macOS permission), user moved the file into `docs/` manually.
+- [x] Extracted the real design system from `Portfolio Background.dc.html`: Silkscreen + JetBrains Mono fonts, red `#fc0201` / cream `#fff8f0` / dark `#120400` palette, CRT scanline overlay, two-tier headline, numbered "Selected Work" list, blinking-cursor contact line.
+- [x] Re-encoded the animated background: source GIF was 360 frames / 14MB — converted to H.264 MP4 via ffmpeg (~865KB) plus a static poster JPG for the `prefers-reduced-motion` fallback and video `poster`. (Also found and discarded an unrelated leftover asset — a "Tech Roast" tour-poster mp4 — that had gotten bundled into the same export by mistake.)
+- [x] Cleaned up: deleted the 42MB raw export bundle after pulling what was needed, kept only a 5KB `docs/design-source-reference.dc.html` for reference.
+- [x] Built shared chrome in the root layout: `PixelBackground` (video + poster + scanlines) and `PixelNav` (Work/About/Contact/Resume, conditional Home link) — every route gets the same treatment automatically.
+- [x] Rebuilt every page as a single no-scroll 100dvh slide:
+  - `/` — the hero itself, adapted: real name/tagline, 7 domains + "All Projects" as the 8-item numbered work list, real email with blinking cursor
+  - `/projects` — domains in the same numbered-list format + compact search
+  - `/projects/[domain]` — compact numbered project list grouped by subcategory (stress-tested on Full Stack Web, the largest domain at 10 projects — fits with room to spare)
+  - `/about` — bio pinned + an in-slide tab switcher (Skills/Experience/Achievements/Research) instead of a long scroll
+  - `/contact` — compact contact list + resume button
+- [x] Restyled the project-detail modal (shadcn Dialog) to match: dark/cream/mono, kept the existing Problem/Approach/Outcome structure
+- [x] Dropped per-domain color-coding in favor of the design's own numbered-list convention (matches the source instead of inventing a new visual language)
+- [x] Removed now-unused code: old `SiteHeader`/`SiteFooter`/`DomainCard`/`motion-primitives` components, the `motion` npm dependency, default Bento-grid styling
+- [x] `tsc --noEmit`, `next build`, `npm run lint` all clean
+- [x] Manually clicked through every route in Chrome (home, projects, full-stack domain page, project modal, about with all 4 tabs, contact) — all render correctly, video/scanlines/fonts working, no console errors
+
 ## Not started (needs explicit go-ahead first)
 - [ ] Custom domain
-- [ ] Design refresh once user provides their own design direction
+- [ ] Push this redesign live (pending — will push to `main` once committed, which auto-deploys to Vercel per the existing Git connection)

@@ -93,3 +93,35 @@ Scaffold the Next.js project (Phase 0) and begin the content-first data layer (P
 - Verified live: `https://portfolio-zeta-rosy-96.vercel.app` — home, `/resume.pdf` (the just-updated file), and a domain page all curl-checked 200.
 - From here, every future `git push` to `main` will auto-deploy to Vercel — that was the point of connecting the repo rather than doing one-off CLI deploys.
 - Confirmed `.vercel/` and `.env.local` (contains a Vercel OIDC token from the link step) are already covered by `.gitignore` and never got staged.
+
+---
+
+## Session 3 — 2026-08-16
+
+### User's request
+> i had designed portfolio webpage design in the claude design , now how do i change the current portfolio design to that
+
+Then, after being asked where the design lived: shared a `claude.ai/design/p/6171cd02-ae86-4f06-8982-d72ea7ded903` link (file: "Portfolio Background.dc.html"). Then, when asked how much of the site it should apply to: **"restyle the whole site to match the design and the site also should a single slide just like the design."** Clarified further that this meant each page stays its own route/URL, but every page becomes a single full-screen no-scroll slide.
+
+### Pulling the actual design source
+- `WebFetch` couldn't authenticate to `claude.ai/design/...` (403) — that path isn't in its allowed authenticated set (only `claude.ai/code/artifact/...` is).
+- Opened it in the user's own logged-in Chrome via browser automation instead. It's "Claude Design," a canvas-based design tool, not a plain Artifact — no raw source visible in the canvas UI itself.
+- Used Share → Export → "Project HTML" → Download to get the actual project files. The sandbox's Bash tool couldn't read `~/Downloads` (macOS `Operation not permitted`, and `Read` tool confirmed it *could* see the directory but not enumerate it) — asked the user to move the downloaded zip into `docs/` themselves rather than requesting broader filesystem permissions for a one-off file.
+- Unzipped it: got the real `Portfolio Background.dc.html` source (a proprietary template format used by Claude Design, with `{{ }}` bindings and custom `<sc-if>`/`<sc-for>` tags — hand-translated into plain React/JSX), plus all the design's media assets.
+
+### What the design actually specifies
+Silkscreen (pixel display font) + JetBrains Mono, red `#fc0201` background, cream `#fff8f0` text, near-black `#120400` for the bold headline tier, a CRT scanline overlay, and a 360-frame animated GIF background (pixel-art office-chair "commit/push" scene with fire along the bottom). Content: top-right nav (Work/About/Contact), two-tier headline (light name / bold "Portfolio"), an 8-item numbered "Selected Work" list, and a contact line with a blinking cursor.
+
+Also found, while inspecting the export's `uploads/` folder, an unrelated leftover asset — an mp4 for a "Tech Roast Pro Max Tour" event poster that had nothing to do with the portfolio (different project, same Claude Design workspace). Confirmed it wasn't referenced anywhere in the actual `.dc.html` and left it out.
+
+### Asset optimization
+The source GIF was 14MB (360 frames at 1152×648) — far too heavy to ship as a page background. Installed `ffmpeg` via Homebrew and re-encoded it to H.264 MP4 (~865KB) plus a static poster JPG (used as both the video `poster` and the `prefers-reduced-motion` fallback image). Deleted the raw GIF and a failed WebM attempt; kept only the MP4 + poster in `public/`. Also deleted the 42MB raw export bundle from `docs/` once the useful bits were pulled out, keeping just a 5KB reference copy of the `.dc.html` source.
+
+### Rebuild
+- Root layout now renders shared `PixelBackground` (video + poster + scanlines, `aria-hidden`, respects `prefers-reduced-motion`) and `PixelNav` (Work/About/Contact/Resume, conditional Home link) behind/around every page — `next/font/google` loads Silkscreen and JetBrains Mono properly instead of the design tool's raw Google Fonts `<link>` tags.
+- Every route rebuilt as a single `h-dvh overflow-hidden` slide: home (the hero itself, with the 7 domains + "All Projects" standing in for the mockup's placeholder work items, and the real email), `/projects` (domains in the same numbered-list style), `/projects/[domain]` (compact numbered list per domain — stress-tested on Full Stack Web, the largest at 10 projects, still fits with room to spare), `/about` (bio + a tab switcher for Skills/Experience/Achievements/Research instead of a long scroll), `/contact` (compact list + resume button).
+- Restyled the project-detail modal to match the new palette/fonts while keeping its Problem/Approach/Outcome structure.
+- Dropped the old per-domain rainbow color-coding in favor of the design's own numbered-list convention — more faithful to what was actually designed than inventing a new scheme.
+- Removed everything the redesign made obsolete: `SiteHeader`, `SiteFooter`, `DomainCard`, `motion-primitives.tsx`, the `motion` npm package, the old Bento-grid styling.
+- Verified: `tsc --noEmit`, `next build`, `npm run lint` all clean; clicked through every route + all 4 About tabs + a project modal in Chrome; browser console clean.
+- Next: commit and push — will auto-deploy to Vercel via the existing Git connection from Session 2.

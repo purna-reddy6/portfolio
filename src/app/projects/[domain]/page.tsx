@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { domains, type DomainId } from "@/data/domains";
 import { getProjectsByDomain } from "@/data/projects";
 import { ProjectCard } from "@/components/project-card";
-import { MotionGrid, MotionItem } from "@/components/motion-primitives";
 
 export function generateStaticParams() {
   return domains.map((d) => ({ domain: d.id }));
@@ -33,48 +32,69 @@ export default async function DomainPage({
   const subcategories = Array.from(
     new Set(domainProjects.map((p) => p.subcategory))
   );
+  let counter = 0;
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-16">
+    <div className="flex h-full w-full flex-col items-center justify-center gap-5 px-6 py-6 text-center">
       <Link
         href="/projects"
-        className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+        className="absolute top-6 left-6 uppercase text-[var(--pixel-cream-55)] transition-colors hover:text-[var(--pixel-cream)] sm:top-7 sm:left-9"
+        style={{ fontFamily: "var(--font-mono)", fontSize: "12px" }}
       >
-        &larr; All domains
+        &larr; All Domains
       </Link>
 
-      <div className="mt-4 flex items-center gap-3">
-        <span
-          className="h-3 w-3 rounded-full"
-          style={{ backgroundColor: domain.color }}
-        />
-        <h1 className="font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          {domain.name}
-        </h1>
+      <div
+        className="uppercase text-[var(--pixel-cream-65)]"
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "clamp(10px,1.1vw,13px)",
+          letterSpacing: "0.25em",
+        }}
+      >
+        {domain.shortLabel} &mdash; {domainProjects.length} Project
+        {domainProjects.length === 1 ? "" : "s"}
       </div>
-      <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-        {domain.description} &mdash; {domainProjects.length} project
-        {domainProjects.length === 1 ? "" : "s"}.
-      </p>
 
-      <div className="mt-10 space-y-12">
+      <div
+        className="max-w-2xl font-bold text-[var(--pixel-dark)]"
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "clamp(22px,3.4vw,40px)",
+          lineHeight: 1.1,
+          letterSpacing: "0.03em",
+        }}
+      >
+        {domain.name}
+      </div>
+
+      <div className="flex flex-wrap justify-center gap-x-12 gap-y-6">
         {subcategories.map((subcategory) => {
           const items = domainProjects.filter((p) => p.subcategory === subcategory);
           return (
-            <div key={subcategory}>
-              <h2 className="mb-4 flex items-baseline gap-2 font-heading text-lg font-semibold text-foreground">
+            <div key={subcategory} className="flex flex-col items-start gap-2">
+              <div
+                className="uppercase text-[var(--pixel-cream-55)]"
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "9px",
+                  letterSpacing: "0.2em",
+                }}
+              >
                 {subcategory}
-                <span className="text-xs font-normal text-muted-foreground">
-                  {items.length} project{items.length === 1 ? "" : "s"}
-                </span>
-              </h2>
-              <MotionGrid className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {items.map((project) => (
-                  <MotionItem key={project.slug}>
-                    <ProjectCard project={project} />
-                  </MotionItem>
-                ))}
-              </MotionGrid>
+              </div>
+              <div className="flex flex-col gap-1.5">
+                {items.map((project) => {
+                  counter += 1;
+                  return (
+                    <ProjectCard
+                      key={project.slug}
+                      project={project}
+                      tag={String(counter).padStart(2, "0")}
+                    />
+                  );
+                })}
+              </div>
             </div>
           );
         })}
