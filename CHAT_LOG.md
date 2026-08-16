@@ -144,3 +144,8 @@ Takeaway for future asset work on this project: prioritize visual fidelity over 
 > can u just remove the commit and push animation from the top and keep it in the same color
 
 Asked one clarifying question first (just the top scene vs. the whole video including the bottom fire strip) since it changes the outcome meaningfully — user chose the whole animation. Removed the `<video>`/poster entirely from `PixelBackground`, leaving just the flat `#fc0201` color and the CRT scanline overlay; deleted the now-unreferenced `pixel-fire-bg.mp4` / `pixel-fire-bg-poster.jpg`. Verified build/lint/typecheck clean and confirmed visually, then committed and pushed.
+
+### User request: simplify the hero headline
+> now remove the porfolio word under my name and change the font size of my name same as portfoliio, as remove Portfolio — Est. 2026
+
+Removed the "Portfolio — Est. 2026" eyebrow label and the "Portfolio" sub-headline entirely; bumped the name's font size up to what "Portfolio" used to be (`clamp(30px,4.6vw,52px)`), keeping its existing cream color and text-shadow. Checked in the browser that the full name at the larger size doesn't overflow or wrap awkwardly — it doesn't. Verified build/lint/typecheck clean, committed and pushed.

@@ -15,40 +15,16 @@ export default function Home() {
   return (
     <div className="flex h-full w-full flex-col items-center justify-center gap-[18px] px-6 py-6 text-center">
       <div
-        className="uppercase text-[var(--pixel-cream-65)]"
+        className="font-bold text-[var(--pixel-cream)]"
         style={{
           fontFamily: "var(--font-display)",
-          fontSize: "clamp(10px,1.1vw,13px)",
-          letterSpacing: "0.25em",
+          fontSize: "clamp(30px,4.6vw,52px)",
+          lineHeight: 1.05,
+          letterSpacing: "0.04em",
+          textShadow: "0 3px 0 rgba(0,0,0,0.25)",
         }}
       >
-        Portfolio &mdash; Est. 2026
-      </div>
-
-      <div>
-        <div
-          className="font-bold text-[var(--pixel-cream)]"
-          style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(16px,2.4vw,26px)",
-            lineHeight: 1.15,
-            letterSpacing: "0.06em",
-            textShadow: "0 3px 0 rgba(0,0,0,0.25)",
-          }}
-        >
-          {profile.name}
-        </div>
-        <div
-          className="mt-0.5 font-bold text-[var(--pixel-dark)]"
-          style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(30px,4.6vw,52px)",
-            lineHeight: 1.05,
-            letterSpacing: "0.04em",
-          }}
-        >
-          Portfolio
-        </div>
+        {profile.name}
       </div>
 
       <div className="flex flex-col items-center gap-2.5">

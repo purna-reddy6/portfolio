@@ -107,6 +107,12 @@ User asked to remove "the commit and push animation from the top and keep it in 
 - [x] Verified: `tsc --noEmit`, `next build`, `npm run lint` clean; visually confirmed in browser
 - [x] Committed and pushed
 
+## Session 3d (2026-08-16) — home hero simplification
+Removed the "Portfolio — Est. 2026" eyebrow label and the "Portfolio" sub-headline; name now renders at the size "Portfolio" used to be (`clamp(30px,4.6vw,52px)`).
+- [x] `src/app/page.tsx` — deleted eyebrow div and the second headline tier, resized the name to the larger clamp value, kept its cream color/text-shadow
+- [x] Verified: `tsc --noEmit`, `next build`, `npm run lint` clean; visually confirmed no overflow/wrapping issues with the full name at the larger size
+- [x] Committed and pushed
+
 ## Not started (needs explicit go-ahead first)
 - [ ] Custom domain
 - [ ] Push this redesign live (pending — will push to `main` once committed, which auto-deploys to Vercel per the existing Git connection)
