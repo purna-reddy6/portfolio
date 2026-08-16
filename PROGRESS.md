@@ -100,6 +100,13 @@ User flagged that the compressed background looked noticeably worse than the ori
 - [x] Re-verified: `tsc --noEmit`, `next build`, `npm run lint` clean; visually confirmed in browser
 - [x] Committed and pushed
 
+## Session 3c (2026-08-16) — remove the animated background entirely
+User asked to remove "the commit and push animation from the top and keep it in the same color." Confirmed scope: remove the whole video (top scene + fire strip), keep the same flat red.
+- [x] `PixelBackground` now renders just the flat `#fc0201` color + the CRT scanline overlay — no video/poster
+- [x] Deleted `public/pixel-fire-bg.mp4` and `public/pixel-fire-bg-poster.jpg` (confirmed unreferenced first)
+- [x] Verified: `tsc --noEmit`, `next build`, `npm run lint` clean; visually confirmed in browser
+- [x] Committed and pushed
+
 ## Not started (needs explicit go-ahead first)
 - [ ] Custom domain
 - [ ] Push this redesign live (pending — will push to `main` once committed, which auto-deploys to Vercel per the existing Git connection)
