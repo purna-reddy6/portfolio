@@ -9,6 +9,7 @@ export default function Home() {
       <PixelDino />
       <div
         data-dino-avoid=""
+        data-dino-track="name"
         className="font-bold text-[var(--pixel-cream)]"
         style={{
           fontFamily: "var(--font-display)",
