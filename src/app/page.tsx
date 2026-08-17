@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { profile } from "@/data/profile";
 import { domains } from "@/data/domains";
+import { ScrambleLink } from "@/components/scramble-link";
 
 const workItems = [
   ...domains.map((d, i) => ({
@@ -95,6 +96,16 @@ export default function Home() {
         <span>Say hi at {profile.email}</span>
         <span className="[animation:pixel-cursor-blink_1s_step-start_infinite]">_</span>
       </a>
+
+      <div className="fixed inset-x-0 bottom-6 z-20 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 px-6 sm:bottom-7">
+        <ScrambleLink label="VIEW PROJECTS" href="/projects" />
+        <ScrambleLink label="GITHUB" href={profile.links.github} external />
+        <ScrambleLink
+          label="ACHIEVEMENTS & CERTIFICATIONS"
+          href="/about?tab=Achievements"
+        />
+        <ScrambleLink label="RESUME" href={profile.links.resume} external />
+      </div>
     </div>
   );
 }

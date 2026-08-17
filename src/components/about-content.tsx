@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { profile } from "@/data/profile";
 import { skillGroups } from "@/data/skills";
 import { experience, achievements, publications } from "@/data/experience";
@@ -14,8 +15,16 @@ const labelStyle = {
   letterSpacing: "0.2em",
 } as const;
 
+function isTab(value: string | null): value is Tab {
+  return tabs.includes(value as Tab);
+}
+
 export function AboutContent() {
-  const [active, setActive] = useState<Tab>("Skills");
+  const searchParams = useSearchParams();
+  const requestedTab = searchParams.get("tab");
+  const [active, setActive] = useState<Tab>(
+    isTab(requestedTab) ? requestedTab : "Skills",
+  );
 
   return (
     <div className="flex h-full w-full flex-col items-center gap-4 overflow-hidden px-6 py-6 pt-20 text-center sm:pt-16">
