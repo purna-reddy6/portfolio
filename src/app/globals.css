@@ -158,3 +158,12 @@
     opacity: 0;
   }
 }
+
+@keyframes pixel-ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
