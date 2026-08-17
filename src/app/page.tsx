@@ -1,11 +1,14 @@
 import { profile } from "@/data/profile";
 import { ScrambleLink } from "@/components/scramble-link";
 import { ProjectTicker } from "@/components/project-ticker";
+import { PixelDino } from "@/components/pixel-dino";
 
 export default function Home() {
   return (
     <div className="flex h-full w-full flex-col items-center justify-center gap-[18px] px-6 py-6 text-center">
+      <PixelDino />
       <div
+        data-dino-avoid=""
         className="font-bold text-[var(--pixel-cream)]"
         style={{
           fontFamily: "var(--font-display)",
@@ -19,6 +22,7 @@ export default function Home() {
       </div>
 
       <div
+        data-dino-avoid=""
         className="font-bold uppercase text-black"
         style={{
           fontFamily: "var(--font-display)",
@@ -31,6 +35,7 @@ export default function Home() {
 
       <a
         href={profile.links.email}
+        data-dino-avoid=""
         className="flex items-center gap-1.5 uppercase text-[var(--pixel-cream-55)] transition-colors hover:text-[var(--pixel-cream)]"
         style={{
           fontFamily: "var(--font-display)",
@@ -42,7 +47,7 @@ export default function Home() {
         <span className="[animation:pixel-cursor-blink_1s_step-start_infinite]">_</span>
       </a>
 
-      <div className="flex flex-wrap items-center justify-center gap-3">
+      <div data-dino-avoid="" className="flex flex-wrap items-center justify-center gap-3">
         <div
           className="uppercase text-[var(--pixel-cream-55)]"
           style={{
@@ -56,7 +61,10 @@ export default function Home() {
         <ProjectTicker />
       </div>
 
-      <div className="fixed inset-x-0 bottom-12 z-20 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 px-10 sm:bottom-14 sm:px-16">
+      <div
+        data-dino-avoid=""
+        className="fixed inset-x-0 bottom-12 z-20 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 px-10 sm:bottom-14 sm:px-16"
+      >
         <ScrambleLink label="VIEW PROJECTS" href="/projects" />
         <ScrambleLink label="GITHUB" href={profile.links.github} external />
         <ScrambleLink

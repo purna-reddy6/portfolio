@@ -19,6 +19,7 @@ export function PixelNav() {
   return (
     <nav
       aria-label="Primary"
+      data-dino-avoid=""
       className="fixed top-6 right-6 z-20 flex items-center gap-6 font-mono sm:top-7 sm:right-9"
       style={{ fontFamily: "var(--font-mono)" }}
     >
