@@ -1,11 +1,14 @@
 import { profile } from "@/data/profile";
 import { ScrambleLink } from "@/components/scramble-link";
 import { ProjectTicker } from "@/components/project-ticker";
+import { PixelDino } from "@/components/pixel-dino";
 
 export default function Home() {
   return (
     <div className="flex h-full w-full flex-col items-center justify-center gap-[18px] px-6 py-6 text-center">
+      <PixelDino />
       <div
+        data-dino-track="name"
         className="font-bold text-[var(--pixel-cream)]"
         style={{
           fontFamily: "var(--font-display)",
