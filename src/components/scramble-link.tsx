@@ -1,51 +1,13 @@
-"use client";
-
-import { useRef, useState } from "react";
 import Link from "next/link";
 
-const SCRAMBLE_CHARS = "01#$%&*<>/\\+=?";
-const FRAMES = 9;
-const FRAME_MS = 35;
+const labelStyle = {
+  fontFamily: "var(--font-mono)",
+  fontSize: "clamp(13px,1.5vw,18px)",
+  letterSpacing: "0.06em",
+} as const;
 
-function scramble(label: string, revealCount: number) {
-  return label
-    .split("")
-    .map((ch, i) => {
-      if (ch === " " || ch === "&" || i < revealCount) return ch;
-      return SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
-    })
-    .join("");
-}
-
-function useScramble(label: string) {
-  const [display, setDisplay] = useState(label);
-  const [active, setActive] = useState(false);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const start = () => {
-    if (timer.current) clearTimeout(timer.current);
-    setActive(true);
-    let frame = 0;
-    const tick = () => {
-      frame++;
-      if (frame >= FRAMES) {
-        setDisplay(label);
-        return;
-      }
-      setDisplay(scramble(label, Math.floor((frame / FRAMES) * label.length)));
-      timer.current = setTimeout(tick, FRAME_MS);
-    };
-    tick();
-  };
-
-  const stop = () => {
-    if (timer.current) clearTimeout(timer.current);
-    setActive(false);
-    setDisplay(label);
-  };
-
-  return { display, active, start, stop };
-}
+const wipeTransition =
+  "transition-[clip-path] duration-300 [transition-timing-function:steps(8,jump-end)]";
 
 export function ScrambleLink({
   label,
@@ -56,49 +18,40 @@ export function ScrambleLink({
   href: string;
   external?: boolean;
 }) {
-  const { display, active, start, stop } = useScramble(label);
-
   const content = (
-    <span
-      className="relative inline-block font-bold"
-      style={{
-        fontFamily: "var(--font-mono)",
-        fontSize: "clamp(13px,1.5vw,18px)",
-        letterSpacing: "0.06em",
-        color: "var(--pixel-cream)",
-        textShadow: active
-          ? "1.5px 0 0 var(--pixel-cream), -1.5px 0 0 var(--pixel-red-dim)"
-          : "none",
-      }}
-    >
-      {display}
+    <span className="group relative inline-flex items-center">
       <span
-        className="absolute -bottom-1 left-0 h-px w-full origin-left bg-[var(--pixel-cream)] transition-transform duration-200"
-        style={{ transform: active ? "scaleX(1)" : "scaleX(0)" }}
+        aria-hidden
+        className="mr-1.5 hidden h-[0.85em] w-[0.5em] shrink-0 bg-[var(--pixel-cream)] group-hover:inline-block group-focus-visible:inline-block [animation:pixel-cursor-blink_0.5s_step-start_infinite]"
       />
+      <span className="relative inline-block font-bold">
+        <span style={labelStyle} className="relative z-0 block text-[var(--pixel-cream)]">
+          {label}
+        </span>
+        <span
+          aria-hidden
+          style={labelStyle}
+          className={`pointer-events-none absolute inset-0 z-10 block whitespace-nowrap bg-[var(--pixel-cream)] font-bold text-[var(--pixel-dark)] [clip-path:inset(0_100%_0_0)] group-hover:[clip-path:inset(0_0_0_0)] group-focus-visible:[clip-path:inset(0_0_0_0)] ${wipeTransition}`}
+        >
+          {label}
+        </span>
+      </span>
     </span>
   );
-
-  const handlers = {
-    onMouseEnter: start,
-    onMouseLeave: stop,
-    onFocus: start,
-    onBlur: stop,
-  };
 
   const className =
     "rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--pixel-cream)]";
 
   if (external) {
     return (
-      <a href={href} target="_blank" rel="noreferrer" className={className} {...handlers}>
+      <a href={href} target="_blank" rel="noreferrer" className={className}>
         {content}
       </a>
     );
   }
 
   return (
-    <Link href={href} className={className} {...handlers}>
+    <Link href={href} className={className}>
       {content}
     </Link>
   );
