@@ -27,6 +27,17 @@ export default function Home() {
         {profile.name}
       </div>
 
+      <div
+        className="uppercase text-black"
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "clamp(11px,1.4vw,16px)",
+          letterSpacing: "0.04em",
+        }}
+      >
+        B.Tech CSE (AI&amp;ML) MBU Tirupati
+      </div>
+
       <div className="flex flex-col items-center gap-2.5">
         <div
           className="uppercase text-[var(--pixel-cream-55)]"
