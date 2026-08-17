@@ -113,6 +113,12 @@ Removed the "Portfolio — Est. 2026" eyebrow label and the "Portfolio" sub-head
 - [x] Verified: `tsc --noEmit`, `next build`, `npm run lint` clean; visually confirmed no overflow/wrapping issues with the full name at the larger size
 - [x] Committed and pushed
 
+## Session 4 (2026-08-17) — education line on home hero
+Added "B.Tech CSE (AI&ML) MBU Tirupati" under the name on `/`: black, same Silkscreen display font as the name, smaller size (`clamp(11px,1.4vw,16px)`).
+- [x] `src/app/page.tsx` updated
+- [x] Verified: `tsc --noEmit`, `next build` clean; visually confirmed in browser (local dev)
+- [x] Committed and pushed — auto-deploys to Vercel
+
 ## Not started (needs explicit go-ahead first)
 - [ ] Custom domain
 - [ ] Push this redesign live (pending — will push to `main` once committed, which auto-deploys to Vercel per the existing Git connection)
