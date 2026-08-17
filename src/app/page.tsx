@@ -28,14 +28,19 @@ export default function Home() {
       </div>
 
       <div
-        className="font-bold uppercase text-black"
+        className="flex items-center font-bold uppercase text-black"
         style={{
           fontFamily: "var(--font-display)",
           fontSize: "clamp(14px,1.8vw,20px)",
           letterSpacing: "0.04em",
         }}
       >
-        B.Tech CSE (AI&amp;ML) &middot;MBU Tirupati
+        <span>B.Tech CSE (AI&amp;ML)</span>
+        <span
+          className="mx-[0.35em] inline-block shrink-0 rounded-full bg-black"
+          style={{ width: "0.22em", height: "0.22em" }}
+        />
+        <span>MBU Tirupati</span>
       </div>
 
       <div className="flex flex-col items-center gap-2.5">
