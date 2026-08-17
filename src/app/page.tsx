@@ -97,7 +97,7 @@ export default function Home() {
         <span className="[animation:pixel-cursor-blink_1s_step-start_infinite]">_</span>
       </a>
 
-      <div className="fixed inset-x-0 bottom-6 z-20 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 px-6 sm:bottom-7">
+      <div className="fixed inset-x-0 bottom-12 z-20 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 px-10 sm:bottom-14 sm:px-16">
         <ScrambleLink label="VIEW PROJECTS" href="/projects" />
         <ScrambleLink label="GITHUB" href={profile.links.github} external />
         <ScrambleLink

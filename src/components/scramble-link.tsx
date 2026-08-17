@@ -63,7 +63,7 @@ export function ScrambleLink({
       className="relative inline-block font-bold"
       style={{
         fontFamily: "var(--font-mono)",
-        fontSize: "clamp(10px,1.05vw,13px)",
+        fontSize: "clamp(13px,1.5vw,18px)",
         letterSpacing: "0.06em",
         color: "var(--pixel-cream)",
         textShadow: active
