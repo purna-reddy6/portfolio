@@ -33,10 +33,9 @@ export default function Home() {
           fontFamily: "var(--font-display)",
           fontSize: "clamp(14px,1.8vw,20px)",
           letterSpacing: "0.04em",
-          WebkitTextStroke: "0.5px black",
         }}
       >
-        B.Tech CSE (AI&amp;ML) .MBU Tirupati
+        B.Tech CSE (AI&amp;ML) &middot;MBU Tirupati
       </div>
 
       <div className="flex flex-col items-center gap-2.5">
