@@ -5,28 +5,7 @@ import { useEffect, useRef, useState } from "react";
 const SPRITE = 70; // native art is 101x101, square
 const SPEED = 34; // px/sec
 const END_PAUSE_MS = 500;
-const FIRE_MS = 700;
-
-const FLAME_COLS = 5;
-const FLAME_COLORS: Record<string, string> = {
-  Y: "#ffd23f",
-  O: "#ff5a1f",
-};
-const FLAME_ROWS = ["..Y..", ".YOY.", "YOOOY", ".OYO."];
-
-function rectsFromGrid(rows: string[], colors: Record<string, string>) {
-  const rects: { x: number; y: number; fill: string }[] = [];
-  rows.forEach((row, y) => {
-    for (let x = 0; x < row.length; x++) {
-      const ch = row[x];
-      if (ch === ".") continue;
-      rects.push({ x, y, fill: colors[ch] });
-    }
-  });
-  return rects;
-}
-
-const FLAME_RECTS = rectsFromGrid(FLAME_ROWS, FLAME_COLORS);
+const FIRE_MS = 900; // 4 frames @ 120ms plays through, then holds on the open-mouth/fire frame
 
 type Bounds = { left: number; right: number; y: number };
 
@@ -144,32 +123,23 @@ export function PixelDino() {
         transition: "opacity 300ms",
       }}
     >
+      {/* key forces a fresh <img> (and so a restarted animation) each time firing toggles on */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={reduceMotion ? "/dino-walk-static.png" : "/dino-walk.webp"}
+        key={firing ? "fire" : "walk"}
+        src={
+          reduceMotion
+            ? "/dino-walk-static.png"
+            : firing
+              ? "/dino-fire.webp"
+              : "/dino-walk.webp"
+        }
         alt=""
         width={SPRITE}
         height={SPRITE}
         draggable={false}
         style={{ imageRendering: "pixelated", display: "block" }}
       />
-      {firing && (
-        <svg
-          viewBox={`0 0 ${FLAME_COLS} ${FLAME_ROWS.length}`}
-          width={SPRITE * 0.45}
-          height={(SPRITE * 0.45 * FLAME_ROWS.length) / FLAME_COLS}
-          shapeRendering="crispEdges"
-          style={{
-            position: "absolute",
-            top: SPRITE * 0.02,
-            left: SPRITE * 0.86,
-          }}
-        >
-          {FLAME_RECTS.map((r, i) => (
-            <rect key={i} x={r.x} y={r.y} width={1} height={1} style={{ fill: r.fill }} />
-          ))}
-        </svg>
-      )}
     </div>
   );
 }
