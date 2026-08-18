@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const SPRITE = 52; // native art is 101x101, square
+const SPRITE = 70; // native art is 101x101, square
 const SPEED = 34; // px/sec
 const END_PAUSE_MS = 500;
 const FIRE_MS = 700;
@@ -61,7 +61,7 @@ export function PixelDino() {
     boundsRef.current = bounds;
     xRef.current = bounds ? bounds.left : 0;
     if (wrapRef.current && bounds) {
-      wrapRef.current.style.transform = `translate3d(${bounds.left}px, ${bounds.y}px, 0) scaleX(-1)`;
+      wrapRef.current.style.transform = `translate3d(${bounds.left}px, ${bounds.y}px, 0) scaleX(1)`;
     }
     setReady(true);
 
@@ -74,7 +74,7 @@ export function PixelDino() {
     const applyTransform = () => {
       const b = boundsRef.current;
       if (!wrapRef.current || !b) return;
-      const facing = dirRef.current === 1 ? -1 : 1; // art faces left by default
+      const facing = dirRef.current === 1 ? 1 : -1; // art faces right by default
       wrapRef.current.style.transform = `translate3d(${xRef.current}px, ${b.y}px, 0) scaleX(${facing})`;
     };
 
@@ -161,8 +161,8 @@ export function PixelDino() {
           shapeRendering="crispEdges"
           style={{
             position: "absolute",
-            top: SPRITE * 0.12,
-            left: -SPRITE * 0.32,
+            top: SPRITE * 0.02,
+            left: SPRITE * 0.86,
           }}
         >
           {FLAME_RECTS.map((r, i) => (
