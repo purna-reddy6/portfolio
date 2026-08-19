@@ -9,15 +9,15 @@ export default function Home() {
       <PixelDino />
 
       <div
-        className="group fixed top-16 right-6 z-20 overflow-hidden rounded-full border-2 border-[var(--pixel-cream-55)] transition-colors duration-200 hover:border-[var(--pixel-cream)] sm:top-20 sm:right-9"
-        style={{ width: "clamp(56px,7vw,84px)", height: "clamp(56px,7vw,84px)" }}
+        className="group fixed top-[72px] right-6 z-20 overflow-hidden rounded-full border-2 border-[var(--pixel-cream-55)] transition-colors duration-200 hover:border-[var(--pixel-cream)] sm:top-24 sm:right-9"
+        style={{ width: "clamp(76px,9.5vw,116px)", height: "clamp(76px,9.5vw,116px)" }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/avatar-static.png"
           alt="Purna Sainath Reddy V"
-          width={84}
-          height={84}
+          width={116}
+          height={116}
           draggable={false}
           className="absolute inset-0 h-full w-full object-cover opacity-100 transition-opacity duration-200 group-hover:opacity-0"
         />
@@ -26,8 +26,8 @@ export default function Home() {
           src="/avatar.webp"
           alt=""
           aria-hidden="true"
-          width={84}
-          height={84}
+          width={116}
+          height={116}
           draggable={false}
           className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-200 group-hover:opacity-100"
         />
