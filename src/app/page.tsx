@@ -2,36 +2,14 @@ import { profile } from "@/data/profile";
 import { ScrambleLink } from "@/components/scramble-link";
 import { ProjectTicker } from "@/components/project-ticker";
 import { PixelDino } from "@/components/pixel-dino";
+import { HoverAvatar } from "@/components/hover-avatar";
 
 export default function Home() {
   return (
     <div className="flex h-full w-full flex-col items-center justify-center gap-[18px] px-6 py-6 text-center">
       <PixelDino />
+      <HoverAvatar />
 
-      <div
-        className="group fixed top-[72px] right-6 z-20 overflow-hidden rounded-full border-2 border-[var(--pixel-cream-55)] transition-colors duration-200 hover:border-[var(--pixel-cream)] sm:top-24 sm:right-9"
-        style={{ width: "clamp(76px,9.5vw,116px)", height: "clamp(76px,9.5vw,116px)" }}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/avatar-static.png"
-          alt="Purna Sainath Reddy V"
-          width={116}
-          height={116}
-          draggable={false}
-          className="absolute inset-0 h-full w-full object-cover opacity-100 transition-opacity duration-200 group-hover:opacity-0"
-        />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/avatar.webp"
-          alt=""
-          aria-hidden="true"
-          width={116}
-          height={116}
-          draggable={false}
-          className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-200 group-hover:opacity-100"
-        />
-      </div>
       <div
         data-dino-track="name"
         className="font-bold text-[var(--pixel-cream)]"
